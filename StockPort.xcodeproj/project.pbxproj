@@ -16,6 +16,8 @@
 		F4B09D7025A4DEF200E4D155 /* Extensions+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B09D6F25A4DEF100E4D155 /* Extensions+String.swift */; };
 		F4B09D7425A4F1C300E4D155 /* CurrencyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B09D7325A4F1C300E4D155 /* CurrencyModel.swift */; };
 		F4B09D8925AA009F00E4D155 /* PortfolioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B09D7F25A9FA5700E4D155 /* PortfolioViewController.swift */; };
+		F4B09D8D25AA2CDE00E4D155 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B09D8C25AA2CDE00E4D155 /* ApiClient.swift */; };
+		F4B09D9125AA2D0D00E4D155 /* InternetConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B09D9025AA2D0D00E4D155 /* InternetConnectionManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		F4B09D6F25A4DEF100E4D155 /* Extensions+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+String.swift"; sourceTree = "<group>"; };
 		F4B09D7325A4F1C300E4D155 /* CurrencyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyModel.swift; sourceTree = "<group>"; };
 		F4B09D7F25A9FA5700E4D155 /* PortfolioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioViewController.swift; sourceTree = "<group>"; wrapsLines = 1; };
+		F4B09D8C25AA2CDE00E4D155 /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
+		F4B09D9025AA2D0D00E4D155 /* InternetConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetConnectionManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +133,7 @@
 		F4B09D7D25A9F90500E4D155 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				F4B09D8B25AA2CC000E4D155 /* Web Services */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -154,6 +159,15 @@
 			children = (
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		F4B09D8B25AA2CC000E4D155 /* Web Services */ = {
+			isa = PBXGroup;
+			children = (
+				F4B09D8C25AA2CDE00E4D155 /* ApiClient.swift */,
+				F4B09D9025AA2D0D00E4D155 /* InternetConnectionManager.swift */,
+			);
+			path = "Web Services";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -226,11 +240,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4B09D8D25AA2CDE00E4D155 /* ApiClient.swift in Sources */,
 				F4B09D5725A23ABB00E4D155 /* AppDelegate.swift in Sources */,
 				F4B09D7425A4F1C300E4D155 /* CurrencyModel.swift in Sources */,
 				F4B09D5925A23ABB00E4D155 /* SceneDelegate.swift in Sources */,
 				F4B09D8925AA009F00E4D155 /* PortfolioViewController.swift in Sources */,
 				F4B09D6125A23ABC00E4D155 /* StockPort.xcdatamodeld in Sources */,
+				F4B09D9125AA2D0D00E4D155 /* InternetConnectionManager.swift in Sources */,
 				F4B09D7025A4DEF200E4D155 /* Extensions+String.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
