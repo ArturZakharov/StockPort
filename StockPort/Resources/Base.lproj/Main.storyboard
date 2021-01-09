@@ -44,11 +44,50 @@
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="xzk-Bc-zbs">
-                                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                                <rect key="frame" x="0.0" y="28" width="414" height="42.5"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xzk-Bc-zbs" id="uye-fL-RA7">
-                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="42.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EfY-TU-KIl">
+                                                            <rect key="frame" x="20" y="6" width="16" height="30.5"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="30" id="f4J-8a-Wvm"/>
+                                                                <constraint firstAttribute="width" constant="16" id="fRS-9D-kSo"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="USD" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tty-5G-tWp">
+                                                            <rect key="frame" x="44" y="6" width="55" height="30.5"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="55" id="itv-F5-3mc"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Currency" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="brx-1i-Ffl">
+                                                            <rect key="frame" x="107" y="6" width="299" height="30.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="brx-1i-Ffl" firstAttribute="leading" secondItem="Tty-5G-tWp" secondAttribute="trailing" constant="8" id="4eH-MP-fR5"/>
+                                                        <constraint firstAttribute="bottom" secondItem="Tty-5G-tWp" secondAttribute="bottom" constant="6" id="CMx-o2-MP4"/>
+                                                        <constraint firstAttribute="bottom" secondItem="EfY-TU-KIl" secondAttribute="bottom" constant="6" id="NgD-RE-S5F"/>
+                                                        <constraint firstItem="EfY-TU-KIl" firstAttribute="leading" secondItem="uye-fL-RA7" secondAttribute="leading" constant="20" id="T4o-73-tiG"/>
+                                                        <constraint firstItem="Tty-5G-tWp" firstAttribute="leading" secondItem="EfY-TU-KIl" secondAttribute="trailing" constant="8" id="dRZ-n7-ZFT"/>
+                                                        <constraint firstItem="brx-1i-Ffl" firstAttribute="top" secondItem="uye-fL-RA7" secondAttribute="top" constant="6" id="emF-Gh-ss7"/>
+                                                        <constraint firstAttribute="trailing" secondItem="brx-1i-Ffl" secondAttribute="trailing" constant="8" id="gTx-TX-f2n"/>
+                                                        <constraint firstAttribute="bottom" secondItem="brx-1i-Ffl" secondAttribute="bottom" constant="6" id="i68-Hh-gjc"/>
+                                                        <constraint firstItem="EfY-TU-KIl" firstAttribute="top" secondItem="uye-fL-RA7" secondAttribute="top" constant="6" id="kWW-hP-9dN"/>
+                                                        <constraint firstItem="Tty-5G-tWp" firstAttribute="top" secondItem="uye-fL-RA7" secondAttribute="top" constant="6" id="uwq-mR-FUQ"/>
+                                                    </constraints>
                                                 </tableViewCellContentView>
                                             </tableViewCell>
                                         </prototypes>

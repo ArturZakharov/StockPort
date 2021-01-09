@@ -15,6 +15,7 @@
 		F4B09D6325A23ABE00E4D155 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4B09D6225A23ABE00E4D155 /* Assets.xcassets */; };
 		F4B09D6625A23ABE00E4D155 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4B09D6425A23ABE00E4D155 /* LaunchScreen.storyboard */; };
 		F4B09D7025A4DEF200E4D155 /* Extensions+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B09D6F25A4DEF100E4D155 /* Extensions+String.swift */; };
+		F4B09D7425A4F1C300E4D155 /* CurrencyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B09D7325A4F1C300E4D155 /* CurrencyModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		F4B09D6525A23ABE00E4D155 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F4B09D6725A23ABE00E4D155 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F4B09D6F25A4DEF100E4D155 /* Extensions+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+String.swift"; sourceTree = "<group>"; };
+		F4B09D7325A4F1C300E4D155 /* CurrencyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,25 +62,74 @@
 		F4B09D5525A23ABB00E4D155 /* StockPort */ = {
 			isa = PBXGroup;
 			children = (
-				F4B09D6E25A4DEA400E4D155 /* extensions */,
-				F4B09D5625A23ABB00E4D155 /* AppDelegate.swift */,
-				F4B09D5825A23ABB00E4D155 /* SceneDelegate.swift */,
-				F4B09D5A25A23ABB00E4D155 /* ViewController.swift */,
-				F4B09D5C25A23ABB00E4D155 /* Main.storyboard */,
-				F4B09D6225A23ABE00E4D155 /* Assets.xcassets */,
-				F4B09D6425A23ABE00E4D155 /* LaunchScreen.storyboard */,
+				F4B09D7825A9F7E400E4D155 /* Modules */,
+				F4B09D7725A9E77400E4D155 /* Model */,
+				F4B09D7D25A9F90500E4D155 /* Services */,
+				F4B09D6E25A4DEA400E4D155 /* Extensions */,
+				F4B09D7A25A9F87300E4D155 /* Resources */,
+				F4B09D7B25A9F89700E4D155 /* Supporting Files */,
 				F4B09D6725A23ABE00E4D155 /* Info.plist */,
 				F4B09D5F25A23ABC00E4D155 /* StockPort.xcdatamodeld */,
 			);
 			path = StockPort;
 			sourceTree = "<group>";
 		};
-		F4B09D6E25A4DEA400E4D155 /* extensions */ = {
+		F4B09D6E25A4DEA400E4D155 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				F4B09D6F25A4DEF100E4D155 /* Extensions+String.swift */,
 			);
-			path = extensions;
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		F4B09D7725A9E77400E4D155 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F4B09D7325A4F1C300E4D155 /* CurrencyModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F4B09D7825A9F7E400E4D155 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				F4B09D7925A9F85000E4D155 /* Portfolio */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		F4B09D7925A9F85000E4D155 /* Portfolio */ = {
+			isa = PBXGroup;
+			children = (
+				F4B09D5A25A23ABB00E4D155 /* ViewController.swift */,
+			);
+			path = Portfolio;
+			sourceTree = "<group>";
+		};
+		F4B09D7A25A9F87300E4D155 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F4B09D5625A23ABB00E4D155 /* AppDelegate.swift */,
+				F4B09D5825A23ABB00E4D155 /* SceneDelegate.swift */,
+				F4B09D5C25A23ABB00E4D155 /* Main.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		F4B09D7B25A9F89700E4D155 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F4B09D6225A23ABE00E4D155 /* Assets.xcassets */,
+				F4B09D6425A23ABE00E4D155 /* LaunchScreen.storyboard */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F4B09D7D25A9F90500E4D155 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -153,6 +204,7 @@
 			files = (
 				F4B09D5B25A23ABB00E4D155 /* ViewController.swift in Sources */,
 				F4B09D5725A23ABB00E4D155 /* AppDelegate.swift in Sources */,
+				F4B09D7425A4F1C300E4D155 /* CurrencyModel.swift in Sources */,
 				F4B09D5925A23ABB00E4D155 /* SceneDelegate.swift in Sources */,
 				F4B09D6125A23ABC00E4D155 /* StockPort.xcdatamodeld in Sources */,
 				F4B09D7025A4DEF200E4D155 /* Extensions+String.swift in Sources */,
