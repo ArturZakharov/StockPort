@@ -11,7 +11,7 @@
         <!--My Portfolio-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="StockPort" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="PortfolioViewController" customModule="StockPort" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -91,6 +91,10 @@
                                                 </tableViewCellContentView>
                                             </tableViewCell>
                                         </prototypes>
+                                        <connections>
+                                            <outlet property="dataSource" destination="BYZ-38-t0r" id="UAW-n0-04J"/>
+                                            <outlet property="delegate" destination="BYZ-38-t0r" id="65w-fW-0Ey"/>
+                                        </connections>
                                     </tableView>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kse-vR-mZg">
                                         <rect key="frame" x="0.0" y="354.5" width="414" height="353.5"/>
@@ -135,6 +139,10 @@
                                                 </tableViewCellContentView>
                                             </tableViewCell>
                                         </prototypes>
+                                        <connections>
+                                            <outlet property="dataSource" destination="BYZ-38-t0r" id="Kt4-r3-bgF"/>
+                                            <outlet property="delegate" destination="BYZ-38-t0r" id="Uoc-iI-DSm"/>
+                                        </connections>
                                     </tableView>
                                 </subviews>
                             </stackView>
@@ -156,6 +164,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="My Portfolio" id="dmB-ot-KiT"/>
+                    <connections>
+                        <outlet property="currencyTableView" destination="3gO-QG-AJa" id="Ztv-sF-tfY"/>
+                        <outlet property="userStocksTableView" destination="kse-vR-mZg" id="QHT-Pu-4s0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
