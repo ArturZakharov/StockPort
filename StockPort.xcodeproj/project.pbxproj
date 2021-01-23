@@ -14,10 +14,13 @@
 		F4B09D6325A23ABE00E4D155 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4B09D6225A23ABE00E4D155 /* Assets.xcassets */; };
 		F4B09D6625A23ABE00E4D155 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4B09D6425A23ABE00E4D155 /* LaunchScreen.storyboard */; };
 		F4B09D7025A4DEF200E4D155 /* Extensions+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B09D6F25A4DEF100E4D155 /* Extensions+String.swift */; };
-		F4B09D7425A4F1C300E4D155 /* CurrencyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B09D7325A4F1C300E4D155 /* CurrencyModel.swift */; };
-		F4B09D8925AA009F00E4D155 /* PortfolioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B09D7F25A9FA5700E4D155 /* PortfolioViewController.swift */; };
 		F4B09D8D25AA2CDE00E4D155 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B09D8C25AA2CDE00E4D155 /* ApiClient.swift */; };
 		F4B09D9125AA2D0D00E4D155 /* InternetConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B09D9025AA2D0D00E4D155 /* InternetConnectionManager.swift */; };
+		F4B09D9925AA3DDF00E4D155 /* PortfolioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B09D7F25A9FA5700E4D155 /* PortfolioViewController.swift */; };
+		F4B09D9C25AA40BB00E4D155 /* CurrencyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B09D9325AA2DB300E4D155 /* CurrencyService.swift */; };
+		F4B09D9F25AA45DD00E4D155 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B09D7325A4F1C300E4D155 /* Currency.swift */; };
+		F4B09DA925B7644A00E4D155 /* currency.json in Resources */ = {isa = PBXBuildFile; fileRef = F4B09DA825B7644A00E4D155 /* currency.json */; };
+		F4B09DAF25BC425300E4D155 /* CurrencyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B09DAE25BC425300E4D155 /* CurrencyCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,10 +33,13 @@
 		F4B09D6525A23ABE00E4D155 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F4B09D6725A23ABE00E4D155 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F4B09D6F25A4DEF100E4D155 /* Extensions+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+String.swift"; sourceTree = "<group>"; };
-		F4B09D7325A4F1C300E4D155 /* CurrencyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyModel.swift; sourceTree = "<group>"; };
+		F4B09D7325A4F1C300E4D155 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		F4B09D7F25A9FA5700E4D155 /* PortfolioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioViewController.swift; sourceTree = "<group>"; wrapsLines = 1; };
 		F4B09D8C25AA2CDE00E4D155 /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
 		F4B09D9025AA2D0D00E4D155 /* InternetConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetConnectionManager.swift; sourceTree = "<group>"; };
+		F4B09D9325AA2DB300E4D155 /* CurrencyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyService.swift; sourceTree = "<group>"; };
+		F4B09DA825B7644A00E4D155 /* currency.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = currency.json; sourceTree = "<group>"; };
+		F4B09DAE25BC425300E4D155 /* CurrencyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,7 +95,7 @@
 		F4B09D7725A9E77400E4D155 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				F4B09D7325A4F1C300E4D155 /* CurrencyModel.swift */,
+				F4B09D7325A4F1C300E4D155 /* Currency.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -114,6 +120,7 @@
 		F4B09D7A25A9F87300E4D155 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F4B09DA825B7644A00E4D155 /* currency.json */,
 				F4B09D5625A23ABB00E4D155 /* AppDelegate.swift */,
 				F4B09D5825A23ABB00E4D155 /* SceneDelegate.swift */,
 				F4B09D5C25A23ABB00E4D155 /* Main.storyboard */,
@@ -134,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				F4B09D8B25AA2CC000E4D155 /* Web Services */,
+				F4B09D9325AA2DB300E4D155 /* CurrencyService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -157,6 +165,7 @@
 		F4B09D8625A9FC5600E4D155 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				F4B09DAE25BC425300E4D155 /* CurrencyCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -229,6 +238,7 @@
 			files = (
 				F4B09D6625A23ABE00E4D155 /* LaunchScreen.storyboard in Resources */,
 				F4B09D6325A23ABE00E4D155 /* Assets.xcassets in Resources */,
+				F4B09DA925B7644A00E4D155 /* currency.json in Resources */,
 				F4B09D5E25A23ABB00E4D155 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -240,12 +250,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4B09DAF25BC425300E4D155 /* CurrencyCell.swift in Sources */,
+				F4B09D9F25AA45DD00E4D155 /* Currency.swift in Sources */,
 				F4B09D8D25AA2CDE00E4D155 /* ApiClient.swift in Sources */,
 				F4B09D5725A23ABB00E4D155 /* AppDelegate.swift in Sources */,
-				F4B09D7425A4F1C300E4D155 /* CurrencyModel.swift in Sources */,
+				F4B09D9C25AA40BB00E4D155 /* CurrencyService.swift in Sources */,
 				F4B09D5925A23ABB00E4D155 /* SceneDelegate.swift in Sources */,
-				F4B09D8925AA009F00E4D155 /* PortfolioViewController.swift in Sources */,
 				F4B09D6125A23ABC00E4D155 /* StockPort.xcdatamodeld in Sources */,
+				F4B09D9925AA3DDF00E4D155 /* PortfolioViewController.swift in Sources */,
 				F4B09D9125AA2D0D00E4D155 /* InternetConnectionManager.swift in Sources */,
 				F4B09D7025A4DEF200E4D155 /* Extensions+String.swift in Sources */,
 			);
