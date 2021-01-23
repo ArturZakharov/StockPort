@@ -43,7 +43,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="353.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="xzk-Bc-zbs">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="currencyCell" id="xzk-Bc-zbs" customClass="CurrencyCell" customModule="StockPort">
                                                 <rect key="frame" x="0.0" y="28" width="414" height="42.5"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xzk-Bc-zbs" id="uye-fL-RA7">
@@ -89,6 +89,11 @@
                                                         <constraint firstItem="Tty-5G-tWp" firstAttribute="top" secondItem="uye-fL-RA7" secondAttribute="top" constant="6" id="uwq-mR-FUQ"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="currencyCode" destination="Tty-5G-tWp" id="GWY-NR-G4O"/>
+                                                    <outlet property="name" destination="brx-1i-Ffl" id="T6R-sI-yuf"/>
+                                                    <outlet property="symbol" destination="EfY-TU-KIl" id="R4S-vN-JFH"/>
+                                                </connections>
                                             </tableViewCell>
                                         </prototypes>
                                         <connections>
@@ -171,7 +176,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1047.8260869565217" y="93.75"/>
+            <point key="canvasLocation" x="-46.376811594202906" y="35.491071428571423"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="rjp-FJ-hy8">
@@ -190,7 +195,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="psP-A1-hoa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137.68115942028987" y="93.75"/>
+            <point key="canvasLocation" x="-759" y="44"/>
         </scene>
     </scenes>
     <resources>

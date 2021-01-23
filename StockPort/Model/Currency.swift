@@ -28,7 +28,8 @@ struct CurrencyDetails: Codable {
 
 //MARK:- final struct for using in app
 struct Currency {
-    let name: String
+    let name: String?
+    let currencyCode: String
     let symbol: String?
     let value: Double
 }

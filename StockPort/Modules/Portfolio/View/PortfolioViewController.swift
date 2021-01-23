@@ -19,8 +19,12 @@ class PortfolioViewController: UIViewController {
         didSet{ getCurrency() }
     }
     var currencyValueElement: CurrencyData?
-    var currency: [Currency]?
-    
+//    var currency = [Currency]() {
+//        didSet{ DispatchQueue.main.async {
+//            self.currencyTableView.reloadData()
+//        } }
+//    }
+    var currency = [Currency]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +42,7 @@ extension PortfolioViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch tableView {
         case currencyTableView:
-            return currency?.count ?? 0
+            return currency.count
         case userStocksTableView:
             return 1
         default:
@@ -50,7 +54,9 @@ extension PortfolioViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch tableView {
         case currencyTableView:
-            return UITableViewCell()
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "currencyCell") as? CurrencyCell else { return UITableViewCell() }
+            cell.configureCell(with: currency[indexPath.row])
+            return cell
         case userStocksTableView:
             return UITableViewCell()
         default:
@@ -65,11 +71,15 @@ extension PortfolioViewController: UITableViewDataSource{
             guard let currencyValueElement = self.currencyValueElement else {return}
             guard let currencyValueArray = self.currencyValueArray else {return}
             for (key, value) in currencyValueArray.currencyRates{
-                let currencyElement = Currency(name: key,
+                let currencyElement = Currency(name:currencyValueElement.currency[key]?.name,
+                                               currencyCode: key,
                                         symbol: currencyValueElement.currency[key]?.symbol,
                                         value: value)
-                self.currency?.append(currencyElement)
+                self.currency.append(currencyElement)
             }
+            DispatchQueue.main.async {
+                        self.currencyTableView.reloadData()
+                    }
         }
     }
 }
