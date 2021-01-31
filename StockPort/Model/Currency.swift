@@ -8,12 +8,23 @@
 import Foundation
 
 //MARK:- struct to recive currency value
-struct CurrencyValue: Codable {
-    let currencyRates: [String: Double]
+//struct CurrencyValue: Codable {
+//    let currencyRates: [String: Double]
+//
+//    enum CodingKeys: String, CodingKey {
+//        case currencyRates = "currency_rates"
+//    }
+//}
 
-    enum CodingKeys: String, CodingKey {
-        case currencyRates = "currency_rates"
-    }
+struct CurrencyValue: Codable {
+    let response: Response
+}
+
+// MARK: - Response
+struct Response: Codable {
+//    let date: Date
+//    let base: String
+    let rates: [String: Double]
 }
 
 //MARK:- structs to get currency symbols

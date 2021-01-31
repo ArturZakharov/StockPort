@@ -18,16 +18,15 @@ class CurrencyService: ApiClient {
     
     //MARK:- Function
     public func getCurrencyValue(completion: @escaping (CurrencyValue) -> Void){
-        guard let url = URL(string: "https://currency-value.p.rapidapi.com/global/currency_rates") else {
+        guard let url = URL(string: "https://currencyscoop.p.rapidapi.com/latest")else {
             print("Error creating url object")
             return
         }
         
         var request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10)
-        
         let headers = [
             "x-rapidapi-key": "4d4114900cmsh656b2fed922b26dp189e9djsnb78a32225697",
-            "x-rapidapi-host": "currency-value.p.rapidapi.com"
+            "x-rapidapi-host": "currencyscoop.p.rapidapi.com"
         ]
         
         request.httpMethod = "GET"

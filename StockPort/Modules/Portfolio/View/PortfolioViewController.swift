@@ -19,13 +19,13 @@ class PortfolioViewController: UIViewController {
         didSet{ getCurrency() }
     }
     var currencyValueElement: CurrencyData?
-//    var currency = [Currency]() {
-//        didSet{ DispatchQueue.main.async {
-//            self.currencyTableView.reloadData()
-//        } }
-//    }
-    var currency = [Currency]()
+
+    var currency = [Currency]() {
+        didSet{ filterdCurrency = currency }
+    }
+    var filterdCurrency = [Currency]()
     
+    //MARK:- Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,12 +37,14 @@ class PortfolioViewController: UIViewController {
     }
 }
 
+//MARK:- Extensions
+//MARK:- UITableViewDataSource
 extension PortfolioViewController: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch tableView {
         case currencyTableView:
-            return currency.count
+            return filterdCurrency.count
         case userStocksTableView:
             return 1
         default:
@@ -55,7 +57,7 @@ extension PortfolioViewController: UITableViewDataSource{
         switch tableView {
         case currencyTableView:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "currencyCell") as? CurrencyCell else { return UITableViewCell() }
-            cell.configureCell(with: currency[indexPath.row])
+            cell.configureCell(with: filterdCurrency[indexPath.row])
             return cell
         case userStocksTableView:
             return UITableViewCell()
@@ -70,7 +72,7 @@ extension PortfolioViewController: UITableViewDataSource{
             self.currencyValueElement = valueElement
             guard let currencyValueElement = self.currencyValueElement else {return}
             guard let currencyValueArray = self.currencyValueArray else {return}
-            for (key, value) in currencyValueArray.currencyRates{
+            for (key, value) in currencyValueArray.response.rates{
                 let currencyElement = Currency(name:currencyValueElement.currency[key]?.name,
                                                currencyCode: key,
                                         symbol: currencyValueElement.currency[key]?.symbol,
