@@ -21,6 +21,7 @@
 		F4B09DA925B7644A00E4D155 /* currency.json in Resources */ = {isa = PBXBuildFile; fileRef = F4B09DA825B7644A00E4D155 /* currency.json */; };
 		F4B09DAF25BC425300E4D155 /* CurrencyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B09DAE25BC425300E4D155 /* CurrencyCell.swift */; };
 		F4B09DB325BC475900E4D155 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4B09D5C25A23ABB00E4D155 /* Main.storyboard */; };
+		F4D7319525C7307000A0F286 /* stocks_names.list.json in Resources */ = {isa = PBXBuildFile; fileRef = F4D7319425C7307000A0F286 /* stocks_names.list.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		F4B09D9325AA2DB300E4D155 /* CurrencyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyService.swift; sourceTree = "<group>"; };
 		F4B09DA825B7644A00E4D155 /* currency.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = currency.json; sourceTree = "<group>"; };
 		F4B09DAE25BC425300E4D155 /* CurrencyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyCell.swift; sourceTree = "<group>"; };
+		F4D7319425C7307000A0F286 /* stocks_names.list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = stocks_names.list.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				F4B09DA825B7644A00E4D155 /* currency.json */,
+				F4D7319425C7307000A0F286 /* stocks_names.list.json */,
 				F4B09D5625A23ABB00E4D155 /* AppDelegate.swift */,
 				F4B09D5825A23ABB00E4D155 /* SceneDelegate.swift */,
 				F4B09D5C25A23ABB00E4D155 /* Main.storyboard */,
@@ -238,6 +241,7 @@
 			files = (
 				F4B09D6625A23ABE00E4D155 /* LaunchScreen.storyboard in Resources */,
 				F4B09D6325A23ABE00E4D155 /* Assets.xcassets in Resources */,
+				F4D7319525C7307000A0F286 /* stocks_names.list.json in Resources */,
 				F4B09DA925B7644A00E4D155 /* currency.json in Resources */,
 				F4B09DB325BC475900E4D155 /* Main.storyboard in Resources */,
 			);

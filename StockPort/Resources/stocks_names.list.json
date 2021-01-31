@@ -1,0 +1,202 @@
+[
+ {
+   "Symbol": "AAPL",
+   "Company": "Apple"
+ },
+ {
+   "Symbol": "MSFT",
+   "Company": "Microsoft"
+ },
+ {
+   "Symbol": "AMZN",
+   "Company": "Amazon"
+ },
+ {
+   "Symbol": "GOOGL",
+   "Company": "Alphabet"
+ },
+ {
+   "Symbol": "FB",
+   "Company": "Facebook"
+ },
+ {
+   "Symbol": "BABA",
+   "Company": "Alibaba"
+ },
+ {
+   "Symbol": "BRK.A",
+   "Company": "Berkshire Hathaway"
+ },
+ {
+   "Symbol": "V",
+   "Company": "Visa"
+ },
+ {
+   "Symbol": "TSM",
+   "Company": "Taiwan Semiconductor"
+ },
+ {
+   "Symbol": "JNJ",
+   "Company": "Johnson & Johnson"
+ },
+ {
+   "Symbol": "WMT",
+   "Company": "Walmart"
+ },
+ {
+   "Symbol": "PG",
+   "Company": "Procter & Gamble"
+ },
+ {
+   "Symbol": "MA",
+   "Company": "Mastercard"
+ },
+ {
+   "Symbol": "JPM",
+   "Company": "JPMorgan Chase"
+ },
+ {
+   "Symbol": "UNH",
+   "Company": "UnitedHealth"
+ },
+ {
+   "Symbol": "HD",
+   "Company": "Home Depot"
+ },
+ {
+   "Symbol": "NVDA",
+   "Company": "NVIDIA"
+ },
+ {
+   "Symbol": "TSLA",
+   "Company": "Tesla"
+ },
+ {
+   "Symbol": "VZ",
+   "Company": "Verizon"
+ },
+ {
+   "Symbol": "DIS",
+   "Company": "Disney"
+ },
+ {
+   "Symbol": "PYPL",
+   "Company": "PayPal"
+ },
+ {
+   "Symbol": "BAC",
+   "Company": "Bank of America"
+ },
+ {
+   "Symbol": "NFLX",
+   "Company": "Netflix"
+ },
+ {
+   "Symbol": "ADBE",
+   "Company": "Adobe"
+ },
+ {
+   "Symbol": "T",
+   "Company": "AT&T"
+ },
+ {
+   "Symbol": "PFE",
+   "Company": "Pfizer"
+ },
+ {
+   "Symbol": "INTC",
+   "Company": "Intel"
+ },
+ {
+   "Symbol": "KO",
+   "Company": "Coca-Cola"
+ },
+ {
+   "Symbol": "MRK",
+   "Company": "Merck"
+ },
+ {
+   "Symbol": "CSCO",
+   "Company": "Cisco Systems"
+ },
+ {
+   "Symbol": "CMCSA",
+   "Company": "Comcast"
+ },
+ {
+   "Symbol": "SAP",
+   "Company": "SAP SE"
+ },
+ {
+   "Symbol": "NVS",
+   "Company": "Novartis AG"
+ },
+ {
+   "Symbol": "PEP",
+   "Company": "Pepsi"
+ },
+ {
+   "Symbol": "XOM",
+   "Company": "ExxonMobil"
+ },
+ {
+   "Symbol": "TM",
+   "Company": "Toyota"
+ },
+ {
+   "Symbol": "CRM",
+   "Company": "Salesforce"
+ },
+ {
+   "Symbol": "ABT",
+   "Company": "Abbott Laboratories"
+ },
+ {
+   "Symbol": "ORCL",
+   "Company": "Oracle"
+ },
+ {
+   "Symbol": "ABBV",
+   "Company": "AbbVie"
+ },
+ {
+   "Symbol": "TMO",
+   "Company": "Thermo Fisher Scientific"
+ },
+ {
+   "Symbol": "CVX",
+   "Company": "Chevron"
+ },
+ {
+   "Symbol": "TMUS",
+   "Company": "T-Mobile US"
+ },
+ {
+   "Symbol": "NKE",
+   "Company": "Nike"
+ },
+ {
+   "Symbol": "ASML",
+   "Company": "ASML"
+ },
+ {
+   "Symbol": "MCD",
+   "Company": "McDonald's"
+ },
+ {
+   "Symbol": "COST",
+   "Company": "Costco Wholesale"
+ },
+ {
+   "Symbol": "ACN",
+   "Company": "Accenture"
+ },
+ {
+   "Symbol": "LLY",
+   "Company": "Eli Lilly"
+ },
+ {
+   "Symbol": "DHR",
+   "Company": "Danaher"
+ }
+]
