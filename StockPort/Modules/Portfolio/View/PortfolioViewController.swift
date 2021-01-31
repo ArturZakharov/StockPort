@@ -97,3 +97,21 @@ extension PortfolioViewController: UITableViewDataSource{
         }
     }
 }
+
+//MARK:- UISearchBarDelegate
+extension PortfolioViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if !searchText.isEmpty && searchText.count > 0 && searchText.count < 4 {
+            filterdCurrency = currency.filter({
+                $0.currencyCode.lowercased().contains(searchText.lowercased()) ?? false })
+        } else if searchText.count >= 4 {
+            filterdCurrency = currency.filter({
+                $0.name?.lowercased().contains(searchText.lowercased()) ?? false })
+        } else {
+            filterdCurrency = currency
+        }
+        
+        currencyTableView.reloadData()
+    }
+}
