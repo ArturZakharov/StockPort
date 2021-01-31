@@ -12,6 +12,8 @@ class PortfolioViewController: UIViewController {
     //MARK:- Outlets
     @IBOutlet weak var currencyTableView: UITableView!
     @IBOutlet weak var userStocksTableView: UITableView!
+    @IBOutlet weak var buyButton: UIButton!
+    @IBOutlet weak var sellButton: UIButton!
     
     //MARK:- Properties
     let ser = CurrencyService.shared
@@ -28,12 +30,22 @@ class PortfolioViewController: UIViewController {
     //MARK:- Functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureButtons()
         
         ser.getCurrencyValue { value in
             self.currencyValueArray = value
-        }
-        
-       
+        } 
+    }
+    
+    @IBAction func buyButtonTapped(_ sender: UIButton) {
+    }
+    
+    @IBAction func sellButtonTapped(_ sender: UIButton) {
+    }
+    
+    private func configureButtons(){
+        buyButton.layer.cornerRadius = 15
+        sellButton.layer.cornerRadius = 15
     }
 }
 
