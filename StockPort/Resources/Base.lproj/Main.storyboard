@@ -166,6 +166,7 @@
                                         </state>
                                         <connections>
                                             <action selector="buyButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="b8E-hv-fyb"/>
+                                            <segue destination="GwS-70-zhl" kind="show" id="XD3-Dl-CBm"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qEL-L1-xul">
@@ -213,6 +214,44 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-46.376811594202906" y="35.491071428571423"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Z3C-Xl-BW2">
+            <objects>
+                <viewController id="GwS-70-zhl" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bzz-ja-lLN">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="dJ9-IP-5eI">
+                                <rect key="frame" x="0.0" y="88" width="414" height="56"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="bfR-NY-LJm"/>
+                                </constraints>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gSd-B3-L1p">
+                                <rect key="frame" x="0.0" y="144" width="414" height="752"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="b0y-Pb-bmT"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="dJ9-IP-5eI" firstAttribute="top" secondItem="b0y-Pb-bmT" secondAttribute="top" id="7eS-mD-AX3"/>
+                            <constraint firstItem="gSd-B3-L1p" firstAttribute="leading" secondItem="b0y-Pb-bmT" secondAttribute="leading" id="B3p-b8-iUg"/>
+                            <constraint firstItem="dJ9-IP-5eI" firstAttribute="trailing" secondItem="b0y-Pb-bmT" secondAttribute="trailing" id="Vz0-1m-hCy"/>
+                            <constraint firstAttribute="bottom" secondItem="gSd-B3-L1p" secondAttribute="bottom" id="YJi-8S-AXS"/>
+                            <constraint firstItem="gSd-B3-L1p" firstAttribute="top" secondItem="dJ9-IP-5eI" secondAttribute="bottom" id="YOz-cF-daI"/>
+                            <constraint firstItem="dJ9-IP-5eI" firstAttribute="leading" secondItem="b0y-Pb-bmT" secondAttribute="leading" id="d8q-N0-pNI"/>
+                            <constraint firstItem="b0y-Pb-bmT" firstAttribute="trailing" secondItem="gSd-B3-L1p" secondAttribute="trailing" id="dX8-Fq-rGg"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Ucy-1r-brU"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dI8-cA-sfw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="799" y="35"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="rjp-FJ-hy8">
