@@ -17,17 +17,31 @@ struct Stock: Codable {
 // MARK: - Price
 struct Price: Codable {
     let regularMarketOpen: DividendDate
-    let shortName: String
+    let shortName: String?
 }
 
 // MARK: - SummaryProfile
 struct SummaryProfile: Codable {
-    let industry: String
-    let sector: String
+    let industry: String?
+    let longBusinessSummary: String
+    let sector: String?
+    
 }
 
 // MARK: - DividendDate
 struct DividendDate: Codable {
-    let raw: Double
-    let fmt: String
+    let raw: Double?
+    let fmt: String?
 }
+
+
+struct CompanyNames: Codable {
+    let symbol, company: String
+
+    enum CodingKeys: String, CodingKey {
+        case symbol = "Symbol"
+        case company = "Company"
+    }
+}
+
+typealias StocksNames = [CompanyNames]
