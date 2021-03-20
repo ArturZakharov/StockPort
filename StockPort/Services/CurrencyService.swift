@@ -25,7 +25,10 @@ class CurrencyService: ApiClient {
         
         var request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10)
         let headers = [
-            "x-rapidapi-key": "4d4114900cmsh656b2fed922b26dp189e9djsnb78a32225697",
+            //from gmail acount
+            //"x-rapidapi-key": "4d4114900cmsh656b2fed922b26dp189e9djsnb78a32225697",
+            //from mail.ru acount
+            "x-rapidapi-key": "72bb964e46msh6e1ce213c5f1633p1da19djsn0bac3f4814ee",
             "x-rapidapi-host": "currencyscoop.p.rapidapi.com"
         ]
         

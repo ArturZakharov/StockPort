@@ -16,15 +16,18 @@ class StockService: ApiClient {
     private init() {}
     
     //MARK:- Function
-    public func getStock(stockSymbol: String, completion: @escaping (CurrencyValue) -> Void){
+    public func getStock(stockSymbol: String, completion: @escaping (Stock) -> Void){
         guard let url = URL(string: "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/get-detail?symbol=\(stockSymbol)&region=US")else {
             print("Error creating url object")
             return
         }
         
-        var request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10)
+        var request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 30)
         let headers = [
-            "x-rapidapi-key": "4d4114900cmsh656b2fed922b26dp189e9djsnb78a32225697",
+            //from gmail acount
+            //"x-rapidapi-key": "4d4114900cmsh656b2fed922b26dp189e9djsnb78a32225697",
+            //from mail.ru acount
+            "x-rapidapi-key": "72bb964e46msh6e1ce213c5f1633p1da19djsn0bac3f4814ee",
             "x-rapidapi-host": "apidojo-yahoo-finance-v1.p.rapidapi.co"
         ]
         
@@ -33,35 +36,47 @@ class StockService: ApiClient {
         
         let session = URLSession.shared
         let dataTask = session.dataTask(with: request) { data, response, error in
-//            let httpUrlResponse = response as? HTTPURLResponse
-//
-//            if httpUrlResponse?.statusCode == 503 {
-//                print("response code: 503 Service Unavailable")
-//            } else {
-//                if error == nil, let data = data {
-//                    do {
-//                        let jsonData = try JSONDecoder().decode(CurrencyValue.self, from: data)
-//                        completion(jsonData)
-//                    } catch {
-//                        print("Error parsing data: \(error)")
-//                    }
-//                } else {
-//                    print("Error: \(String(describing: error))")
-//                }
-//            }
-            if error == nil, let data = data {
-                
-                // Try to parse out the data
-                do {
-                    let jsonObject = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
-                    let jsonData = try JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted)
-                    let jsonObjectString = String(data: jsonData, encoding: String.Encoding.utf8) ?? ""
-                    print(jsonObjectString)
-                } catch {
-                    print("Error parsing data!")
+            let httpUrlResponse = response as? HTTPURLResponse
+
+            if httpUrlResponse?.statusCode == 503 {
+                print("response code: 503 Service Unavailable")
+            } else {
+                if error == nil, let data = data {
+                    do {
+                        let jsonData = try JSONDecoder().decode(Stock.self, from: data)
+                        //******************************
+                        let jsonObject = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
+                        let jsonData1 = try JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted)
+                        let jsonObjectString = String(data: jsonData1, encoding: String.Encoding.utf8) ?? ""
+                        print(jsonObjectString)
+                        //******************************
+                        completion(jsonData)
+                    } catch {
+                        print("Error parsing data: \(error)")
+                    }
+                } else {
+                    print("Error: \(String(describing: error))")
                 }
             }
         }
         dataTask.resume()
+    }
+    
+    
+    
+    func getStocksNames(completion: @escaping ([CompanyNames]) -> Void){
+        guard let path = Bundle.main.path(forResource: "stocks_names.list", ofType: "json") else {return}
+        let url = URL(fileURLWithPath: path)
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            guard let data = data else { return }
+            
+            do {
+                let stocks = try JSONDecoder().decode([CompanyNames].self, from: data)
+                
+                completion(stocks)
+            } catch {
+                print("error decoding data")
+            }
+        }.resume()
     }
 }

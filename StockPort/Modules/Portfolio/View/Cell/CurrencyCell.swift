@@ -9,12 +9,15 @@ import UIKit
 
 class CurrencyCell: UITableViewCell {
 
+    //MARK:- Outlets
     @IBOutlet weak var symbol: UILabel!
     @IBOutlet weak var currencyCode: UILabel!
     @IBOutlet weak var name: UILabel!
     
-    let cellId = "currencyCell"
+    //MARK:- Properties
+    public static let cellID = "currencyCell"
     
+    //MARK:- Functions
     public func configureCell(with currency: Currency){
         if let safeSymbol = currency.symbol {
             symbol.text = safeSymbol

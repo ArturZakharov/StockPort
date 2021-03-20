@@ -10,6 +10,7 @@ import UIKit
 class PortfolioViewController: UIViewController {
     
     //MARK:- Outlets
+    @IBOutlet weak var balanceLabel: UILabel!
     @IBOutlet weak var currencyTableView: UITableView!
     @IBOutlet weak var userStocksTableView: UITableView!
     @IBOutlet weak var buyButton: UIButton!
@@ -27,54 +28,91 @@ class PortfolioViewController: UIViewController {
     }
     var filterdCurrency = [Currency]()
     
+    let userDefaults = UserDefaults.standard
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var purchasedStocks: [PurchasedStock]?
+    var stocks = [Stock]() {
+        didSet{ DispatchQueue.main.async {
+            self.userStocksTableView.reloadData()
+            }
+        }
+    }
+    
     //MARK:- Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         configureButtons()
+        configurePage()
+        fetchData()
         
-        ser.getCurrencyValue { value in
-            self.currencyValueArray = value
-        } 
+        // paused because of limited api calls
+//        ser.getCurrencyValue { value in
+//            self.currencyValueArray = value
+//        }
     }
     
-    @IBAction func buyButtonTapped(_ sender: UIButton) {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let selectedIndexPath = userStocksTableView.indexPathForSelectedRow {
+            userStocksTableView.deselectRow(at: selectedIndexPath, animated: animated)
+            configureButtons()
+        }
     }
     
     @IBAction func sellButtonTapped(_ sender: UIButton) {
+        performSegue(withIdentifier: "segueFromSellButton", sender: nil)
     }
     
     private func configureButtons(){
         buyButton.layer.cornerRadius = 15
         sellButton.layer.cornerRadius = 15
+        sellButton.isEnabled = false
+        sellButton.backgroundColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
     }
-}
-
-//MARK:- Extensions
-//MARK:- UITableViewDataSource
-extension PortfolioViewController: UITableViewDataSource{
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch tableView {
-        case currencyTableView:
-            return filterdCurrency.count
-        case userStocksTableView:
-            return 1
-        default:
-            print("Something wrong with numberOfRows")
-            return 0
+    private func configurePage(){
+        if userDefaults.object(forKey: "wallet") == nil {
+            userDefaults.set(10000.00, forKey: "wallet")
         }
+        let balance = userDefaults.double(forKey: "wallet").rounded(toPlaces: 2)
+        balanceLabel.text = "Balance: \(balance)$"
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch tableView {
-        case currencyTableView:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "currencyCell") as? CurrencyCell else { return UITableViewCell() }
-            cell.configureCell(with: filterdCurrency[indexPath.row])
-            return cell
-        case userStocksTableView:
-            return UITableViewCell()
-        default:
-            return UITableViewCell()
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let viewController = segue.destination as? StocksDetailsViewController {
+            viewController.buyButtonShow = false
+            guard let indexPath = userStocksTableView.indexPathForSelectedRow else { return }
+            viewController.stock = stocks[indexPath.row]
+        }
+        
+    }
+    
+//    func fetchData(){
+//
+//        do {
+//            purchasedStocks = try context.fetch(PurchasedStock.fetchRequest())
+//            DispatchQueue.main.async {
+//                self.userStocksTableView.reloadData()
+//            }
+//        } catch  {
+//            //TODO: problem fetching data
+//            print("PROOOOOOOOOBLEM")
+//        }
+//    }
+    
+    func fetchData(){
+        do {
+            purchasedStocks = try context.fetch(PurchasedStock.fetchRequest())
+        } catch  {
+            //TODO: problem fetching data
+            print("PROOOOOOOOOBLEM")
+        }
+        
+        guard let purchasedStocks = purchasedStocks else { return }
+        for stock in purchasedStocks{
+            StockService.shared.getStock(stockSymbol: stock.stockASymbol) { stockData in
+                self.stocks.append(stockData)
+            }
         }
     }
     
@@ -98,13 +136,59 @@ extension PortfolioViewController: UITableViewDataSource{
     }
 }
 
+//MARK:- Extensions
+//MARK:- UITableViewDataSource
+extension PortfolioViewController: UITableViewDataSource{
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch tableView {
+        case currencyTableView:
+            return filterdCurrency.count
+        case userStocksTableView:
+            return stocks.count
+        default:
+            print("Something wrong with numberOfRows")
+            return 0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch tableView {
+        case currencyTableView:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: CurrencyCell.cellID) as? CurrencyCell else { return UITableViewCell() }
+            cell.configureCell(with: filterdCurrency[indexPath.row])
+            return cell
+        case userStocksTableView:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: PurchasedStockCell.cellID) as? PurchasedStockCell, let purchasedStocks = purchasedStocks else { return UITableViewCell() }
+            let i = indexPath.row
+            cell.configureCell(with: purchasedStocks[i], stockData: stocks[i])
+            return cell
+        default:
+            return UITableViewCell()
+        }
+    }
+}
+
+//MARK:- UITableViewDataSource
+extension PortfolioViewController: UITableViewDelegate{
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch tableView {
+        case userStocksTableView:
+            sellButton.isEnabled = true
+            sellButton.backgroundColor = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
+        default:
+            break
+        }
+    }
+}
+
 //MARK:- UISearchBarDelegate
 extension PortfolioViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if !searchText.isEmpty && searchText.count > 0 && searchText.count < 4 {
             filterdCurrency = currency.filter({
-                $0.currencyCode.lowercased().contains(searchText.lowercased()) ?? false })
+                $0.currencyCode.lowercased().contains(searchText.lowercased())})
         } else if searchText.count >= 4 {
             filterdCurrency = currency.filter({
                 $0.name?.lowercased().contains(searchText.lowercased()) ?? false })
