@@ -24,23 +24,26 @@ class StocksDetailsViewController: UIViewController {
     @IBOutlet weak var sellButton: UIButton!
     
     //MARK:- Properties
+    private let presenter = StocksDetailsPresenter(context: (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)
     var stock: Stock?
     var buyButtonShow:Bool = true
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    let userDefaults = UserDefaults.standard
-    var userWallet: Double? {
-        didSet{ userDefaults.set(userWallet, forKey: "wallet") }
-    }
-    var currentPurchasedStock: PurchasedStock?
-        
+    
+    //    var userWallet: Double? {
+    //        didSet{ userDefaults.set(userWallet, forKey: "wallet") }
+    //    }
+    
+    
     //MARK:- Functions
     override func viewDidLoad() {
         super.viewDidLoad()
-        userWallet = userDefaults.double(forKey: "wallet").rounded(toPlaces: 2)
+        presenter.setViewDelegate(stocksDetailsView: self)
+        presenter.stock = stock
+        presenter.getStockInfo()
         countityStockTextField.addToolBarWithDoneButton()
         configureButtons()
+        
         configPage()
-        fetchLocalData()
     }
     
     private func configureButtons(){
@@ -50,7 +53,7 @@ class StocksDetailsViewController: UIViewController {
             buyButton.isHidden = true
             
             DispatchQueue.main.async {
-                //Changing constarit of stack view for one button
+                //Changing constraint of stack view for one button
                 let newConstraint = self.stackViewWidthConstraint.constraintWithMultiplier(0.45)
                 self.superView.removeConstraint(self.stackViewWidthConstraint)
                 self.superView.addConstraint(newConstraint)
@@ -62,69 +65,17 @@ class StocksDetailsViewController: UIViewController {
     }
     
     private func configPage(){
-        //TODO: userWallet unpack
-        userWalletLabel.text = "Balance: \(userWallet!)$"
-        guard let safeStock = stock else { return }
-        stockFullName.text = safeStock.price.shortName
-        //TODO: to unpack the optional price
-        stockPrice.text = "\(safeStock.price.regularMarketOpen.raw!)"
-        //stockCompanyDescription.text = safeStock.summaryProfile.longBusinessSummary
-        self.title = safeStock.symbol
+        userWalletLabel.text = "Balance: \(presenter.userWallet!)$"
         TotalAmountLabel.text = ""
         countityStockTextField.text = ""
-    }
-    
-    func fetchLocalData(){
-        guard let safeStock = stock else { return }
-        
-        do {
-            let request = PurchasedStock.fetchRequest() as NSFetchRequest<PurchasedStock>
-            let pred = NSPredicate(format: "stockASymbol CONTAINS '\(safeStock.symbol)'")
-            request.predicate = pred
-            let purchasedStockOfCurrentType = try context.fetch(request)
-            if purchasedStockOfCurrentType.count > 0 {
-                currentPurchasedStock = purchasedStockOfCurrentType[0]
-            }
-            
-        } catch  {
-            //TODO: problem fetching data
-        }
     }
     
     @IBAction func buyButtontapped(_ sender: UIButton) {
         countityStockTextField.resignFirstResponder()
         
         guard let countityText = countityStockTextField.text else { return }
-        guard let userWallet = userWallet else { return }
         guard let countity = Double(countityText) else { return }
-        guard let price = stock?.price.regularMarketOpen.raw else { return }
-        guard let safeStock = stock else { return }
-        
-        let stockPriceSum = countity * price
-        if stockPriceSum <= userWallet {
-            
-            self.userWallet! -= stockPriceSum
-            configPage()
-            //save the purchase in core data
-            
-            if let currentPurchasedStock = currentPurchasedStock {
-                //TODO: to add to exicting stock the countity that was bought
-                currentPurchasedStock.countity += countity
-                print(currentPurchasedStock)
-            } else {
-                let newPurchased = PurchasedStock(context: self.context)
-                newPurchased.stockASymbol = safeStock.symbol
-                newPurchased.countity = countity
-                currentPurchasedStock = newPurchased
-            }
-            do {
-                try self.context.save()
-            } catch {
-                //TODO: alert that was a problem with saving
-            }
-        } else {
-            //TODO: to alert user that he doesnt have enough money in the wallet
-        }
+        presenter.purchasingStock(countity: countity)
     }
     
     @IBAction func sellButtontapped(_ sender: Any) {
@@ -144,9 +95,26 @@ extension StocksDetailsViewController: UITextFieldDelegate{
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
         if let countity = Double(textField.text ?? ""){
-           let inTotal = countity * (stock?.price.regularMarketOpen.raw)!
+            let inTotal = countity * (stock?.price.regularMarketOpen.raw)!
             TotalAmountLabel.text = "\(inTotal)"
         }
         
+    }
+}
+
+extension StocksDetailsViewController: StocksDetailsViewDelegate {
+    
+    func showStockInfo(fullName: String, price: String, symbol: String) {
+        stockFullName.text = fullName
+        stockPrice.text = price
+        self.title = symbol
+    }
+    
+    func purchasingSuccses() {
+        configPage()
+    }
+    
+    func purchasingFaild(error: Error) {
+        //to do alert to informat user
     }
 }

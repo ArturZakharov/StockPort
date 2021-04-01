@@ -45,10 +45,10 @@ class StockService: ApiClient {
                     do {
                         let jsonData = try JSONDecoder().decode(Stock.self, from: data)
                         //******************************
-                        let jsonObject = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
-                        let jsonData1 = try JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted)
-                        let jsonObjectString = String(data: jsonData1, encoding: String.Encoding.utf8) ?? ""
-                        print(jsonObjectString)
+//                        let jsonObject = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
+//                        let jsonData1 = try JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted)
+//                        let jsonObjectString = String(data: jsonData1, encoding: String.Encoding.utf8) ?? ""
+//                        print(jsonObjectString)
                         //******************************
                         completion(jsonData)
                     } catch {
@@ -65,7 +65,7 @@ class StockService: ApiClient {
     
     
     func getStocksNames(completion: @escaping ([CompanyNames]) -> Void){
-        guard let path = Bundle.main.path(forResource: "stocks_names.list", ofType: "json") else {return}
+         guard let path = Bundle.main.path(forResource: "stocks_names.list", ofType: "json") else {return}
         let url = URL(fileURLWithPath: path)
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             guard let data = data else { return }

@@ -17,38 +17,13 @@ class PortfolioViewController: UIViewController {
     @IBOutlet weak var sellButton: UIButton!
     
     //MARK:- Properties
-    let ser = CurrencyService.shared
-    var currencyValueArray: CurrencyValue? {
-        didSet{ getCurrency() }
-    }
-    var currencyValueElement: CurrencyData?
-
-    var currency = [Currency]() {
-        didSet{ filterdCurrency = currency }
-    }
-    var filterdCurrency = [Currency]()
-    
-    let userDefaults = UserDefaults.standard
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    var purchasedStocks: [PurchasedStock]?
-    var stocks = [Stock]() {
-        didSet{ DispatchQueue.main.async {
-            self.userStocksTableView.reloadData()
-            }
-        }
-    }
+    private let presenter = PortfolioPresenter(context: (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)
     
     //MARK:- Functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter.setViewDelegate(portfolioViewDelegate: self)
         configureButtons()
-        configurePage()
-        fetchData()
-        
-        // paused because of limited api calls
-//        ser.getCurrencyValue { value in
-//            self.currencyValueArray = value
-//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -70,68 +45,11 @@ class PortfolioViewController: UIViewController {
         sellButton.backgroundColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
     }
     
-    private func configurePage(){
-        if userDefaults.object(forKey: "wallet") == nil {
-            userDefaults.set(10000.00, forKey: "wallet")
-        }
-        let balance = userDefaults.double(forKey: "wallet").rounded(toPlaces: 2)
-        balanceLabel.text = "Balance: \(balance)$"
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let viewController = segue.destination as? StocksDetailsViewController {
             viewController.buyButtonShow = false
             guard let indexPath = userStocksTableView.indexPathForSelectedRow else { return }
-            viewController.stock = stocks[indexPath.row]
-        }
-        
-    }
-    
-//    func fetchData(){
-//
-//        do {
-//            purchasedStocks = try context.fetch(PurchasedStock.fetchRequest())
-//            DispatchQueue.main.async {
-//                self.userStocksTableView.reloadData()
-//            }
-//        } catch  {
-//            //TODO: problem fetching data
-//            print("PROOOOOOOOOBLEM")
-//        }
-//    }
-    
-    func fetchData(){
-        do {
-            purchasedStocks = try context.fetch(PurchasedStock.fetchRequest())
-        } catch  {
-            //TODO: problem fetching data
-            print("PROOOOOOOOOBLEM")
-        }
-        
-        guard let purchasedStocks = purchasedStocks else { return }
-        for stock in purchasedStocks{
-            StockService.shared.getStock(stockSymbol: stock.stockASymbol) { stockData in
-                self.stocks.append(stockData)
-            }
-        }
-    }
-    
-    //func that get symbols for currency
-    func getCurrency(){
-        ser.getCurrencySimbols { valueElement in
-            self.currencyValueElement = valueElement
-            guard let currencyValueElement = self.currencyValueElement else {return}
-            guard let currencyValueArray = self.currencyValueArray else {return}
-            for (key, value) in currencyValueArray.response.rates{
-                let currencyElement = Currency(name:currencyValueElement.currency[key]?.name,
-                                               currencyCode: key,
-                                        symbol: currencyValueElement.currency[key]?.symbol,
-                                        value: value)
-                self.currency.append(currencyElement)
-            }
-            DispatchQueue.main.async {
-                        self.currencyTableView.reloadData()
-                    }
+            viewController.stock = presenter.stocks[indexPath.row]
         }
     }
 }
@@ -143,9 +61,9 @@ extension PortfolioViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch tableView {
         case currencyTableView:
-            return filterdCurrency.count
+            return presenter.filterdCurrency.count
         case userStocksTableView:
-            return stocks.count
+            return presenter.stocks.count
         default:
             print("Something wrong with numberOfRows")
             return 0
@@ -156,12 +74,12 @@ extension PortfolioViewController: UITableViewDataSource{
         switch tableView {
         case currencyTableView:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: CurrencyCell.cellID) as? CurrencyCell else { return UITableViewCell() }
-            cell.configureCell(with: filterdCurrency[indexPath.row])
+            cell.configureCell(with: presenter.filterdCurrency[indexPath.row])
             return cell
         case userStocksTableView:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: PurchasedStockCell.cellID) as? PurchasedStockCell, let purchasedStocks = purchasedStocks else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: PurchasedStockCell.cellID) as? PurchasedStockCell else { return UITableViewCell() }
             let i = indexPath.row
-            cell.configureCell(with: purchasedStocks[i], stockData: stocks[i])
+            cell.configureCell(with: presenter.purchasedStocks[i], stockData: presenter.stocks[i])
             return cell
         default:
             return UITableViewCell()
@@ -185,17 +103,37 @@ extension PortfolioViewController: UITableViewDelegate{
 //MARK:- UISearchBarDelegate
 extension PortfolioViewController: UISearchBarDelegate {
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if !searchText.isEmpty && searchText.count > 0 && searchText.count < 4 {
-            filterdCurrency = currency.filter({
-                $0.currencyCode.lowercased().contains(searchText.lowercased())})
-        } else if searchText.count >= 4 {
-            filterdCurrency = currency.filter({
-                $0.name?.lowercased().contains(searchText.lowercased()) ?? false })
-        } else {
-            filterdCurrency = currency
+//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//        if !searchText.isEmpty && searchText.count > 0 && searchText.count < 4 {
+//            filterdCurrency = currency.filter({
+//                $0.currencyCode.lowercased().contains(searchText.lowercased())})
+//        } else if searchText.count >= 4 {
+//            filterdCurrency = currency.filter({
+//                $0.name?.lowercased().contains(searchText.lowercased()) ?? false })
+//        } else {
+//            filterdCurrency = currency
+//        }
+//
+//        currencyTableView.reloadData()
+//    }
+}
+
+
+extension PortfolioViewController: PortfolioViewDelegate{
+
+    func showCurrentWalletBalance(balance: String) {
+        balanceLabel.text = balance
+    }
+    
+    func showCurrency() {
+        DispatchQueue.main.async {
+            self.currencyTableView.reloadData()
         }
-        
-        currencyTableView.reloadData()
+    }
+    
+    func showPurchasedStoks(){
+        DispatchQueue.main.async {
+            self.userStocksTableView.reloadData()
+        }
     }
 }

@@ -6,12 +6,90 @@
 //
 
 import Foundation
+import CoreData
+
 protocol PortfolioViewDelegate: class {
-    
+    func showCurrentWalletBalance(balance: String)
+    func showCurrency()
+    func showPurchasedStoks()
 }
 
 class PortfolioPresenter{
     
-    private weak var portfolioViewDelegate: PortfolioViewDelegate?
+    //MARK:- Properties
+    let ser = CurrencyService.shared
+    var currency = [Currency]() { didSet{ filterdCurrency = currency } }
+    var filterdCurrency = [Currency]()
     
+    private weak var viewDelegate: PortfolioViewDelegate?{
+        didSet{ getwalletBalance() }
+    }
+    let userDefaults = UserDefaults.standard
+    private var context: NSManagedObjectContext
+    var purchasedStocks = [PurchasedStock]()
+    var stocks = [Stock](){
+        didSet{ setUserPurchasedStoks() }
+    }
+    
+    //MARK:- Functions
+    init(context: NSManagedObjectContext) {
+        self.context = context
+        // getCurrencyData()
+        getUserPurchasedStocks()
+    }
+    
+    func setViewDelegate(portfolioViewDelegate: PortfolioViewDelegate){
+        viewDelegate = portfolioViewDelegate
+    }
+    
+    private func getwalletBalance(){
+        if userDefaults.object(forKey: "wallet") == nil {
+            userDefaults.set(10000.00, forKey: "wallet")
+        }
+        let balance = userDefaults.double(forKey: "wallet").rounded(toPlaces: 2)
+        viewDelegate?.showCurrentWalletBalance(balance: "\(balance)")
+    }
+    
+    func getCurrencyData(){
+        ser.getCurrencyValue { value in
+            self.getCurrency(currencyValue: value)
+        }
+    }
+    
+    //func that get symbols for currency
+    func getCurrency(currencyValue: CurrencyValue?){
+        
+        ser.getCurrencySimbols { valueElement in
+            guard let currencyValueElement = valueElement else { return }
+            guard let currencyValue = currencyValue else { return }
+            for (key, value) in currencyValue.response.rates{
+                let currencyElement = Currency(name:currencyValueElement.currency[key]?.name,
+                                               currencyCode: key,
+                                               symbol: currencyValueElement.currency[key]?.symbol,
+                                               value: value)
+                self.currency.append(currencyElement)
+            }
+            self.viewDelegate?.showCurrency()
+        }
+    }
+    
+    private func getUserPurchasedStocks(){
+        do {
+            purchasedStocks = try context.fetch(PurchasedStock.fetchRequest())
+        } catch  {
+            //TODO: problem fetching data
+            print("PROOOOOOOOOBLEM")
+        }
+        if purchasedStocks.count != 0 {
+            for item in purchasedStocks{
+                StockService.shared.getStock(stockSymbol: item.stockASymbol) { stockData in
+                    self.stocks.append(stockData)
+                }
+            }
+        }
+    }
+    
+    private func setUserPurchasedStoks(){
+        viewDelegate?.showPurchasedStoks()
+    }
 }

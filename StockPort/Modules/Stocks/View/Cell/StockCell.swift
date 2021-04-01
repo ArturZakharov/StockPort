@@ -18,7 +18,8 @@ class StockCell: UITableViewCell {
     public static let cellId = "stockCell"
     
     //MARK:- Functions
-    func configureCell(with stock: Stock){
+    func configureCell(with stock: Stock?){
+        guard let stock = stock else { return }
         companyName.text = stock.price.shortName
         companySymbol.text = stock.symbol
         stockPrice.text = stock.price.regularMarketOpen.fmt

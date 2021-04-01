@@ -59,7 +59,7 @@ class CurrencyService: ApiClient {
     
     
     
-    public func getCurrencySimbols(completion: @escaping (CurrencyData) -> Void) {
+    public func getCurrencySimbols(completion: @escaping (CurrencyData?) -> Void) {
         guard let path = Bundle.main.path(forResource: "currency", ofType: "json") else {return}
         let url = URL(fileURLWithPath: path)
         URLSession.shared.dataTask(with: url) { (data, response, error) in
