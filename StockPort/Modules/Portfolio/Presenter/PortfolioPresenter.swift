@@ -17,8 +17,8 @@ protocol PortfolioViewDelegate: class {
 class PortfolioPresenter{
     
     //MARK:- Properties
-    let ser = CurrencyService.shared
-    var currency = [Currency]() { didSet{ filterdCurrency = currency } }
+    let currencyService = CurrencyService.shared
+    var currencies = [Currency]() { didSet{ filterdCurrency = currencies } }
     var filterdCurrency = [Currency]()
     
     private weak var viewDelegate: PortfolioViewDelegate?{
@@ -35,14 +35,14 @@ class PortfolioPresenter{
     init(context: NSManagedObjectContext) {
         self.context = context
         // getCurrencyData()
-        getUserPurchasedStocks()
+        //getUserPurchasedStocks()
     }
     
     func setViewDelegate(portfolioViewDelegate: PortfolioViewDelegate){
         viewDelegate = portfolioViewDelegate
     }
     
-    private func getwalletBalance(){
+    func getwalletBalance(){
         if userDefaults.object(forKey: "wallet") == nil {
             userDefaults.set(10000.00, forKey: "wallet")
         }
@@ -51,7 +51,7 @@ class PortfolioPresenter{
     }
     
     func getCurrencyData(){
-        ser.getCurrencyValue { value in
+        currencyService.getCurrencyValue { value in
             self.getCurrency(currencyValue: value)
         }
     }
@@ -59,7 +59,7 @@ class PortfolioPresenter{
     //func that get symbols for currency
     func getCurrency(currencyValue: CurrencyValue?){
         
-        ser.getCurrencySimbols { valueElement in
+        currencyService.getCurrencySimbols { valueElement in
             guard let currencyValueElement = valueElement else { return }
             guard let currencyValue = currencyValue else { return }
             for (key, value) in currencyValue.response.rates{
@@ -67,7 +67,7 @@ class PortfolioPresenter{
                                                currencyCode: key,
                                                symbol: currencyValueElement.currency[key]?.symbol,
                                                value: value)
-                self.currency.append(currencyElement)
+                self.currencies.append(currencyElement)
             }
             self.viewDelegate?.showCurrency()
         }
@@ -87,6 +87,12 @@ class PortfolioPresenter{
                 }
             }
         }
+    }
+    
+    func refreshData(){
+        stocks = [Stock]()
+        purchasedStocks = [PurchasedStock]()
+        getUserPurchasedStocks()
     }
     
     private func setUserPurchasedStoks(){

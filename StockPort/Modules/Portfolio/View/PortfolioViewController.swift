@@ -32,6 +32,9 @@ class PortfolioViewController: UIViewController {
             userStocksTableView.deselectRow(at: selectedIndexPath, animated: animated)
             configureButtons()
         }
+        presenter.getwalletBalance()
+        presenter.refreshData()
+        userStocksTableView.reloadData()
     }
     
     @IBAction func sellButtonTapped(_ sender: UIButton) {
@@ -87,7 +90,7 @@ extension PortfolioViewController: UITableViewDataSource{
     }
 }
 
-//MARK:- UITableViewDataSource
+//MARK:- UITableViewDelegate
 extension PortfolioViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch tableView {

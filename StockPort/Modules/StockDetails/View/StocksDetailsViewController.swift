@@ -37,8 +37,8 @@ class StocksDetailsViewController: UIViewController {
     //MARK:- Functions
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter.setViewDelegate(stocksDetailsView: self)
         presenter.stock = stock
+        presenter.setViewDelegate(stocksDetailsView: self)
         presenter.getStockInfo()
         countityStockTextField.addToolBarWithDoneButton()
         configureButtons()
@@ -80,6 +80,10 @@ class StocksDetailsViewController: UIViewController {
     
     @IBAction func sellButtontapped(_ sender: Any) {
         countityStockTextField.resignFirstResponder()
+        
+        guard let countityText = countityStockTextField.text else { return }
+        guard let countity = Double(countityText) else { return }
+        presenter.sellStock(countity: countity)
     }
 }
 
@@ -96,7 +100,7 @@ extension StocksDetailsViewController: UITextFieldDelegate{
     func textFieldDidChangeSelection(_ textField: UITextField) {
         if let countity = Double(textField.text ?? ""){
             let inTotal = countity * (stock?.price.regularMarketOpen.raw)!
-            TotalAmountLabel.text = "\(inTotal)"
+            TotalAmountLabel.text = "\(inTotal.rounded(toPlaces: 4))"
         }
         
     }
@@ -115,6 +119,14 @@ extension StocksDetailsViewController: StocksDetailsViewDelegate {
     }
     
     func purchasingFaild(error: Error) {
+        //to do alert to informat user
+    }
+    
+    func sellStockSuccses(){
+        configPage()
+    }
+    
+    func sellStockFaild(error: Error){
         //to do alert to informat user
     }
 }
