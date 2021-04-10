@@ -63,11 +63,15 @@ class PortfolioPresenter{
             guard let currencyValueElement = valueElement else { return }
             guard let currencyValue = currencyValue else { return }
             for (key, value) in currencyValue.response.rates{
-                let currencyElement = Currency(name:currencyValueElement.currency[key]?.name,
-                                               currencyCode: key,
-                                               symbol: currencyValueElement.currency[key]?.symbol,
-                                               value: value)
-                self.currencies.append(currencyElement)
+                let name = currencyValueElement.currency[key]?.name
+                let symbol = currencyValueElement.currency[key]?.symbol
+                if name != nil && symbol != nil {
+                    let currencyElement = Currency(name: name,
+                                                   currencyCode: key,
+                                                   symbol: symbol,
+                                                   value: value)
+                    self.currencies.append(currencyElement)
+                }
             }
             self.viewDelegate?.showCurrency()
         }
