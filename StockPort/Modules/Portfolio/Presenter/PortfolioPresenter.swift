@@ -20,9 +20,10 @@ class PortfolioPresenter{
     let currencyService = CurrencyService.shared
     var currencies = [Currency]() { didSet{ filterdCurrency = currencies } }
     var filterdCurrency = [Currency]()
+    var choosedCurrencyForWallet: Currency?
     
     private weak var viewDelegate: PortfolioViewDelegate?{
-        didSet{ getwalletBalance() }
+        didSet{ getWalletBalance() }
     }
     let userDefaults = UserDefaults.standard
     private var context: NSManagedObjectContext
@@ -30,6 +31,7 @@ class PortfolioPresenter{
     var stocks = [Stock](){
         didSet{ setUserPurchasedStoks() }
     }
+    private let moneyBuilder = MoneyBuilder()
     
     //MARK:- Functions
     init(context: NSManagedObjectContext) {
@@ -42,12 +44,12 @@ class PortfolioPresenter{
         viewDelegate = portfolioViewDelegate
     }
     
-    func getwalletBalance(){
+    func getWalletBalance(){
         if userDefaults.object(forKey: "wallet") == nil {
             userDefaults.set(10000.00, forKey: "wallet")
         }
-        let balance = userDefaults.double(forKey: "wallet").rounded(toPlaces: 2)
-        viewDelegate?.showCurrentWalletBalance(balance: "\(balance)")
+        let money = userDefaults.double(forKey: "wallet")
+        viewDelegate?.showCurrentWalletBalance(balance: moneyBuilder.getMoneyInCorrectCurrency(moneyAmount: money))
     }
     
     func getCurrencyData(){
@@ -97,9 +99,38 @@ class PortfolioPresenter{
         stocks = [Stock]()
         purchasedStocks = [PurchasedStock]()
         getUserPurchasedStocks()
+        getWalletBalance()
     }
     
     private func setUserPurchasedStoks(){
         viewDelegate?.showPurchasedStoks()
+    }
+    
+    func currencyOfTheWalletChanged(to currency: Currency){
+        choosedCurrencyForWallet = currency
+        userDefaults.set(currency.symbol, forKey: "symbol")
+        userDefaults.set(currency.value, forKey: "currencyValue")
+    }
+    
+    func getMoneyInCorrectForm(money: Double) -> String {
+        return moneyBuilder.getMoneyInCorrectCurrency(moneyAmount: money)
+    }
+    
+    func filterCurrencies(with searchText: String){
+        if !searchText.isEmpty && searchText.count > 0 && searchText.count < 4 {
+            filterdCurrency = currencies.filter({
+                $0.currencyCode.lowercased().contains(searchText.lowercased())})
+            if filterdCurrency.count == 0 {
+                filterdCurrency = currencies.filter({
+                    $0.name?.lowercased().contains(searchText.lowercased()) ?? false })
+            }
+        } else if searchText.count >= 4 {
+            filterdCurrency = currencies.filter({
+                $0.name?.lowercased().contains(searchText.lowercased()) ?? false })
+        } else {
+           filterdCurrency = currencies
+        }
+
+        viewDelegate?.showCurrency()
     }
 }

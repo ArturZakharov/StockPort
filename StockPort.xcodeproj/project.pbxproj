@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F41EFE7C262AE98C0066EFBC /* mock_currency_value.json in Resources */ = {isa = PBXBuildFile; fileRef = F41EFE7B262AE98C0066EFBC /* mock_currency_value.json */; };
+		F41EFE80262AF5AF0066EFBC /* mock_stocks.json in Resources */ = {isa = PBXBuildFile; fileRef = F41EFE7F262AF5AF0066EFBC /* mock_stocks.json */; };
+		F41EFE84262B1EE00066EFBC /* MoneyBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41EFE83262B1EE00066EFBC /* MoneyBuilder.swift */; };
 		F4856670261625C700B27519 /* StocksPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F485666F261625C700B27519 /* StocksPresenter.swift */; };
 		F48566782616457300B27519 /* StocksDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F485667326162DDE00B27519 /* StocksDetailsPresenter.swift */; };
 		F49B412125F94683003D8A03 /* Extensions+TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49B412025F94683003D8A03 /* Extensions+TextField.swift */; };
@@ -39,6 +42,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F41EFE7B262AE98C0066EFBC /* mock_currency_value.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mock_currency_value.json; sourceTree = "<group>"; };
+		F41EFE7F262AF5AF0066EFBC /* mock_stocks.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mock_stocks.json; sourceTree = "<group>"; };
+		F41EFE83262B1EE00066EFBC /* MoneyBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyBuilder.swift; sourceTree = "<group>"; };
 		F45A9A2425E0322500F196B6 /* StocksDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksDetailsViewController.swift; sourceTree = "<group>"; };
 		F485666F261625C700B27519 /* StocksPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksPresenter.swift; sourceTree = "<group>"; };
 		F485667326162DDE00B27519 /* StocksDetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksDetailsPresenter.swift; sourceTree = "<group>"; };
@@ -83,6 +89,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F41EFE82262B1E070066EFBC /* MoneyManipulation */ = {
+			isa = PBXGroup;
+			children = (
+				F41EFE83262B1EE00066EFBC /* MoneyBuilder.swift */,
+			);
+			path = MoneyManipulation;
+			sourceTree = "<group>";
+		};
 		F45A9A2225E0319A00F196B6 /* StockDetails */ = {
 			isa = PBXGroup;
 			children = (
@@ -183,6 +197,8 @@
 		F4B09D7A25A9F87300E4D155 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F41EFE7B262AE98C0066EFBC /* mock_currency_value.json */,
+				F41EFE7F262AF5AF0066EFBC /* mock_stocks.json */,
 				F4B09DA825B7644A00E4D155 /* currency.json */,
 				F4D7319425C7307000A0F286 /* stocks_names.list.json */,
 				F4B09D5625A23ABB00E4D155 /* AppDelegate.swift */,
@@ -204,6 +220,7 @@
 		F4B09D7D25A9F90500E4D155 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				F41EFE82262B1E070066EFBC /* MoneyManipulation */,
 				F4B09D8B25AA2CC000E4D155 /* Web Services */,
 				F4B09D9325AA2DB300E4D155 /* CurrencyService.swift */,
 				F4D7319725D2F27300A0F286 /* StockService.swift */,
@@ -337,10 +354,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F41EFE7C262AE98C0066EFBC /* mock_currency_value.json in Resources */,
 				F4B09D6625A23ABE00E4D155 /* LaunchScreen.storyboard in Resources */,
 				F4AE153225E16E0C00688A89 /* Main.storyboard in Resources */,
 				F4B09D6325A23ABE00E4D155 /* Assets.xcassets in Resources */,
 				F4D7319525C7307000A0F286 /* stocks_names.list.json in Resources */,
+				F41EFE80262AF5AF0066EFBC /* mock_stocks.json in Resources */,
 				F4B09DA925B7644A00E4D155 /* currency.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -372,6 +391,7 @@
 				F4B09D6125A23ABC00E4D155 /* StockPort.xcdatamodeld in Sources */,
 				F4B09D9125AA2D0D00E4D155 /* InternetConnectionManager.swift in Sources */,
 				F4D731A125D3086000A0F286 /* StocksViewController.swift in Sources */,
+				F41EFE84262B1EE00066EFBC /* MoneyBuilder.swift in Sources */,
 				F4B09D7025A4DEF200E4D155 /* Extensions+String.swift in Sources */,
 				F49B412125F94683003D8A03 /* Extensions+TextField.swift in Sources */,
 				F4AE157E25F6B04500688A89 /* StocksDetailsViewController.swift in Sources */,

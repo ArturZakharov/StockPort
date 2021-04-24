@@ -26,6 +26,7 @@ class StocksDetailsPresenter {
     var stock: Stock?
     var currentPurchasedStock: PurchasedStock?
     private var context: NSManagedObjectContext
+    private let moneyBuilder = MoneyBuilder()
     
     //MARK:- Functions
     init(context: NSManagedObjectContext) {
@@ -139,8 +140,12 @@ class StocksDetailsPresenter {
         guard let stock = stock else { return }
         
         let name = stock.price.shortName ?? ""
-        let stockPrice = "\(stock.price.regularMarketOpen.raw!)"
+        let stockPrice = moneyBuilder.getMoneyInCorrectCurrency(moneyAmount: stock.price.regularMarketOpen.raw!)
         let stockSymbol = stock.symbol
         viewDelegate?.showStockInfo(fullName: name, price: stockPrice, symbol: stockSymbol)
+    }
+    
+    func getMoneyInCorrectForm(money: Double) -> String {
+        return moneyBuilder.getMoneyInCorrectCurrency(moneyAmount: money)
     }
 }

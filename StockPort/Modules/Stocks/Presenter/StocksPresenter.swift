@@ -16,6 +16,8 @@ class StocksPresenter {
     //MARK:- Properties
     private weak var viewDelegate: StocksViewDelegate? { didSet{ getStocks() } }
     var stocks: [Stock]?
+    let userDefaults = UserDefaults.standard
+    private let moneyBuilder = MoneyBuilder()
     
     //MARK:- Functions
     func setViewDelegate(stocksViewDelegate: StocksViewDelegate){
@@ -49,5 +51,9 @@ class StocksPresenter {
             //                }
             //            }
         }
+    }
+    
+    func getMoneyInCorrectForm(money: Double) -> String {
+        return moneyBuilder.getMoneyInCorrectCurrency(moneyAmount: money)
     }
 }

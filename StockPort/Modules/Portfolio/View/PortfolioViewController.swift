@@ -32,7 +32,7 @@ class PortfolioViewController: UIViewController {
             userStocksTableView.deselectRow(at: selectedIndexPath, animated: animated)
             configureButtons()
         }
-        presenter.getwalletBalance()
+        presenter.getWalletBalance()
         presenter.refreshData()
         userStocksTableView.reloadData()
     }
@@ -97,6 +97,10 @@ extension PortfolioViewController: UITableViewDelegate{
         case userStocksTableView:
             sellButton.isEnabled = true
             sellButton.backgroundColor = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
+        case currencyTableView:
+            presenter.currencyOfTheWalletChanged(to: presenter.currencies[indexPath.row])
+            presenter.refreshData()
+            currencyTableView.deselectRow(at: indexPath, animated: true)
         default:
             break
         }

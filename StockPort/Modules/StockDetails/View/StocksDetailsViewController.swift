@@ -65,7 +65,8 @@ class StocksDetailsViewController: UIViewController {
     }
     
     private func configPage(){
-        userWalletLabel.text = "Balance: \(presenter.userWallet!)$"
+        guard let userWallet = presenter.userWallet else { return }
+        userWalletLabel.text = "Balance: \(presenter.getMoneyInCorrectForm(money: userWallet))"
         TotalAmountLabel.text = ""
         countityStockTextField.text = ""
     }
@@ -100,7 +101,7 @@ extension StocksDetailsViewController: UITextFieldDelegate{
     func textFieldDidChangeSelection(_ textField: UITextField) {
         if let countity = Double(textField.text ?? ""){
             let inTotal = countity * (stock?.price.regularMarketOpen.raw)!
-            TotalAmountLabel.text = "\(inTotal.rounded(toPlaces: 4))"
+            TotalAmountLabel.text = presenter.getMoneyInCorrectForm(money: inTotal)
         }
         
     }
