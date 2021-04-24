@@ -51,8 +51,8 @@ extension StocksViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: StockCell.cellId) as? StockCell else { return UITableViewCell()}
         let stock = presenter.stocks?[indexPath.row]
-        cell.configureCell(with: stock)
-        
+        //cell.configureCell(with: stock)
+        cell.configureCell(with: presenter, index: indexPath.row)
         return cell
     }
 }

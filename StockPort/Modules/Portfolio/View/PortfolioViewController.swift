@@ -29,7 +29,7 @@ class PortfolioViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let selectedIndexPath = userStocksTableView.indexPathForSelectedRow {
-            userStocksTableView.deselectRow(at: selectedIndexPath, animated: animated)
+            userStocksTableView.deselectRow(at: selectedIndexPath, animated: true)
             configureButtons()
         }
         presenter.getWalletBalance()
@@ -81,8 +81,9 @@ extension PortfolioViewController: UITableViewDataSource{
             return cell
         case userStocksTableView:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: PurchasedStockCell.cellID) as? PurchasedStockCell else { return UITableViewCell() }
-            let i = indexPath.row
-            cell.configureCell(with: presenter.purchasedStocks[i], stockData: presenter.stocks[i])
+//            let i = indexPath.row
+//            cell.configureCell(with: presenter.purchasedStocks[i], stockData: presenter.stocks[i])
+            cell.configureCell(with: presenter, index: indexPath.row)
             return cell
         default:
             return UITableViewCell()
@@ -110,19 +111,9 @@ extension PortfolioViewController: UITableViewDelegate{
 //MARK:- UISearchBarDelegate
 extension PortfolioViewController: UISearchBarDelegate {
     
-//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        if !searchText.isEmpty && searchText.count > 0 && searchText.count < 4 {
-//            filterdCurrency = currency.filter({
-//                $0.currencyCode.lowercased().contains(searchText.lowercased())})
-//        } else if searchText.count >= 4 {
-//            filterdCurrency = currency.filter({
-//                $0.name?.lowercased().contains(searchText.lowercased()) ?? false })
-//        } else {
-//            filterdCurrency = currency
-//        }
-//
-//        currencyTableView.reloadData()
-//    }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        presenter.filterCurrencies(with: searchText)
+    }
 }
 
 
