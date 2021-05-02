@@ -42,6 +42,7 @@ class PortfolioPresenter{
     
     func setViewDelegate(portfolioViewDelegate: PortfolioViewDelegate){
         viewDelegate = portfolioViewDelegate
+        getCurrencyData()
     }
     
     func getWalletBalance(){
