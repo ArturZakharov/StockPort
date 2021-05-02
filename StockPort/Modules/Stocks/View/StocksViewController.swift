@@ -20,6 +20,7 @@ class StocksViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter.setViewDelegate(stocksViewDelegate: self)
+        tableView.showActivityIndicator()
         //getStocks()
     }
     
@@ -67,6 +68,7 @@ extension StocksViewController: UISearchBarDelegate {
 extension StocksViewController: StocksViewDelegate {
     func showStocks() {
         DispatchQueue.main.async {
+            self.tableView.stopActivityIndicator()
             self.tableView.reloadData()
             
         }

@@ -22,6 +22,8 @@ class PortfolioViewController: UIViewController {
     //MARK:- Functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        userStocksTableView.showActivityIndicator()
+        currencyTableView.showActivityIndicator()
         presenter.setViewDelegate(portfolioViewDelegate: self)
         configureButtons()
     }
@@ -125,12 +127,14 @@ extension PortfolioViewController: PortfolioViewDelegate{
     
     func showCurrency() {
         DispatchQueue.main.async {
+            self.currencyTableView.stopActivityIndicator()
             self.currencyTableView.reloadData()
         }
     }
     
     func showPurchasedStoks(){
         DispatchQueue.main.async {
+            self.userStocksTableView.stopActivityIndicator()
             self.userStocksTableView.reloadData()
         }
     }

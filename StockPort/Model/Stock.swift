@@ -17,7 +17,7 @@ struct Stock: Codable {
 // MARK: - Price
 struct Price: Codable {
     let regularMarketOpen: DividendDate
-    let shortName: String?
+    let shortName: String
 }
 
 // MARK: - SummaryProfile
