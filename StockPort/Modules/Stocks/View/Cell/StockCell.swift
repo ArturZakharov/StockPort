@@ -18,18 +18,20 @@ class StockCell: UITableViewCell {
     public static let cellId = "stockCell"
     
     //MARK:- Functions
-//    func configureCell(with stock: Stock?){
-//        guard let stock = stock else { return }
-//        companyName.text = stock.price.shortName
-//        companySymbol.text = stock.symbol
-//        stockPrice.text = stock.price.regularMarketOpen.fmt
-//    }
-
-    func configureCell(with presenter: StocksPresenter, index: Int){
-        guard let stock = presenter.stocks?[index] else { return }
+    func configureCell(with stock: Stock?, presenter: StocksPresenter){
+        guard let stock = stock else { return }
         companyName.text = stock.price.shortName
         companySymbol.text = stock.symbol
+        
         guard let price = stock.price.regularMarketOpen.raw else { return }
         stockPrice.text = presenter.getMoneyInCorrectForm(money: price)
     }
+
+//    func configureCell(with presenter: StocksPresenter, index: Int){
+//        guard let stock = presenter.stocks?[index] else { return }
+//        companyName.text = stock.price.shortName
+//        companySymbol.text = stock.symbol
+//        guard let price = stock.price.regularMarketOpen.raw else { return }
+//        stockPrice.text = presenter.getMoneyInCorrectForm(money: price)
+//    }
 }
