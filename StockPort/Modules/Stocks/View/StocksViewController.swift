@@ -45,16 +45,43 @@ class StocksViewController: UIViewController {
 //MARK:- UITableViewDataSource
 extension StocksViewController: UITableViewDataSource {
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return presenter.sections?.count ?? 0
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.stocks?.count ?? 0
+        return presenter.sections?[section].stocks.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: StockCell.cellId) as? StockCell else { return UITableViewCell()}
-        let stock = presenter.stocks?[indexPath.row]
-        //cell.configureCell(with: stock)
-        cell.configureCell(with: presenter, index: indexPath.row)
+        let stock = presenter.sections?[indexPath.section].stocks[indexPath.row]
+        cell.configureCell(with: stock, presenter: presenter)
         return cell
+    }
+}
+
+//MARK:- UITableViewDelegate
+extension StocksViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard let sections = presenter.sections else { return 0 }
+        return sections[indexPath.section].isExpanded == true ? 50 : 0
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = ExpandableHeaderFooterView()
+        guard let sections = presenter.sections else { return header}
+        header.setHeaderFooterView(title: sections[section].name, section: section, delegate: self)
+        return header
     }
 }
 
@@ -70,7 +97,22 @@ extension StocksViewController: StocksViewDelegate {
         DispatchQueue.main.async {
             self.tableView.stopActivityIndicator()
             self.tableView.reloadData()
-            
+        }
+    }
+}
+
+//MARK:- UISearchBarDelegate
+extension StocksViewController: ExpandableHeaderFooterViewDelegate {
+    func toggleSection(header: ExpandableHeaderFooterView, section: Int) {
+        //presenter.sections[section].isExpanded = !s{ections[section].isExpanded
+        //guard var sections = presenter.sections else { return }
+        if !(presenter.sections == nil) {
+            presenter.sections![section].isExpanded = !presenter.sections![section].isExpanded
+            tableView.beginUpdates()
+            for index in 0..<(presenter.sections?[section].stocks.count)! {
+                tableView.reloadRows(at: [IndexPath(row: index, section: section)], with: .fade)
+            }
+            tableView.endUpdates()
         }
     }
 }
