@@ -15,9 +15,11 @@ class StocksPresenter {
     
     //MARK:- Properties
     private weak var viewDelegate: StocksViewDelegate? { didSet{ getStocks() } }
-    var stocks: [Stock]?
+    var stocks: [Stock]? {
+        didSet{createSectionsArray(from: stocks!)}}
     let userDefaults = UserDefaults.standard
     private let moneyBuilder = MoneyBuilder()
+    var sections: [Section]?
     
     //MARK:- Functions
     func setViewDelegate(stocksViewDelegate: StocksViewDelegate){
@@ -55,5 +57,28 @@ class StocksPresenter {
     
     func getMoneyInCorrectForm(money: Double) -> String {
         return moneyBuilder.getMoneyInCorrectCurrency(moneyAmount: money)
+    }
+    
+    private func createSectionsArray(from stocks: [Stock]){
+        var industryDictionary = [String: [Stock]]()
+        
+        for stock in stocks {
+            guard let industry = stock.summaryProfile.industry else { return }
+            if !industryDictionary.contains(where: {$0.key == stock.summaryProfile.industry}) {
+                industryDictionary[industry] = [stock]
+            } else {
+                industryDictionary[industry]! += [stock]
+            }
+        }
+        
+        sections = [Section]()
+        
+        for element in industryDictionary {
+            let sortedStocks = element.value.sorted { $0.price.shortName < $1.price.shortName }
+            sections?.append(Section(name: element.key, stocks: sortedStocks, isExpanded: false))
+        }
+        
+        sections = sections?.sorted{ $0.name < $1.name }
+        self.viewDelegate?.showStocks()
     }
 }
