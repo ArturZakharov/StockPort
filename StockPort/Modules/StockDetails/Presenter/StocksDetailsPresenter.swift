@@ -62,7 +62,7 @@ class StocksDetailsPresenter {
                 saveDataToCoreData()
             } else {
                 let newPurchased = PurchasedStock(context: self.context)
-                newPurchased.stockASymbol = safeStock.symbol
+                newPurchased.stockSymbol = safeStock.symbol
                 newPurchased.countity = countity
                 currentPurchasedStock = newPurchased
                 saveDataToCoreData()

@@ -19,6 +19,9 @@
 		F49B414825FABC92003D8A03 /* Extensions+NSLayoutConstrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49B414725FABC92003D8A03 /* Extensions+NSLayoutConstrain.swift */; };
 		F49B414B25FBDDA2003D8A03 /* Extensions+Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49B414A25FBDDA2003D8A03 /* Extensions+Double.swift */; };
 		F4A5E0A926359B2E005FACAC /* ExpandableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A5E0A826359B2E005FACAC /* ExpandableHeaderView.swift */; };
+		F4A9357A2652E1A4009580D6 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A935792652E1A4009580D6 /* SignInViewController.swift */; };
+		F4A9357E2652E201009580D6 /* SignInPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A9357D2652E201009580D6 /* SignInPresenter.swift */; };
+		F4A935802662D04D009580D6 /* Extensions+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A9357F2662D04D009580D6 /* Extensions+UIViewController.swift */; };
 		F4AE153225E16E0C00688A89 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4B09D5C25A23ABB00E4D155 /* Main.storyboard */; };
 		F4AE157E25F6B04500688A89 /* StocksDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45A9A2425E0322500F196B6 /* StocksDetailsViewController.swift */; };
 		F4AE158425F7FD9800688A89 /* PurchasedStock+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AE158225F7FD9800688A89 /* PurchasedStock+CoreDataClass.swift */; };
@@ -57,6 +60,9 @@
 		F49B414725FABC92003D8A03 /* Extensions+NSLayoutConstrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+NSLayoutConstrain.swift"; sourceTree = "<group>"; };
 		F49B414A25FBDDA2003D8A03 /* Extensions+Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+Double.swift"; sourceTree = "<group>"; };
 		F4A5E0A826359B2E005FACAC /* ExpandableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableHeaderView.swift; sourceTree = "<group>"; };
+		F4A935792652E1A4009580D6 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		F4A9357D2652E201009580D6 /* SignInPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInPresenter.swift; sourceTree = "<group>"; };
+		F4A9357F2662D04D009580D6 /* Extensions+UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+UIViewController.swift"; sourceTree = "<group>"; };
 		F4AE158225F7FD9800688A89 /* PurchasedStock+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PurchasedStock+CoreDataClass.swift"; sourceTree = "<group>"; };
 		F4AE158325F7FD9800688A89 /* PurchasedStock+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PurchasedStock+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F4AE158B25F7FF7F00688A89 /* PurchasedStockCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasedStockCell.swift; sourceTree = "<group>"; };
@@ -137,6 +143,31 @@
 			path = ExpandableHeaderView;
 			sourceTree = "<group>";
 		};
+		F4A935782652E17B009580D6 /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				F4A9357B2652E1AB009580D6 /* View */,
+				F4A9357C2652E1BA009580D6 /* Presenter */,
+			);
+			path = SignIn;
+			sourceTree = "<group>";
+		};
+		F4A9357B2652E1AB009580D6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F4A935792652E1A4009580D6 /* SignInViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F4A9357C2652E1BA009580D6 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				F4A9357D2652E201009580D6 /* SignInPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
 		F4B09D4A25A23ABB00E4D155 = {
 			isa = PBXGroup;
 			children = (
@@ -176,6 +207,7 @@
 				F49B414725FABC92003D8A03 /* Extensions+NSLayoutConstrain.swift */,
 				F49B414A25FBDDA2003D8A03 /* Extensions+Double.swift */,
 				F4155339263DEE4300B4ECFF /* Extensions+ActivityIndicator.swift */,
+				F4A9357F2662D04D009580D6 /* Extensions+UIViewController.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -194,6 +226,7 @@
 		F4B09D7825A9F7E400E4D155 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				F4A935782652E17B009580D6 /* SignIn */,
 				F4B09D7925A9F85000E4D155 /* Portfolio */,
 				F4D7319D25D307E100A0F286 /* Stocks */,
 				F45A9A2225E0319A00F196B6 /* StockDetails */,
@@ -398,6 +431,7 @@
 				F4B09D9F25AA45DD00E4D155 /* Currency.swift in Sources */,
 				F41EFE8B263476EB0066EFBC /* Section.swift in Sources */,
 				F4AE158525F7FD9800688A89 /* PurchasedStock+CoreDataProperties.swift in Sources */,
+				F4A9357A2652E1A4009580D6 /* SignInViewController.swift in Sources */,
 				F4B09D8D25AA2CDE00E4D155 /* ApiClient.swift in Sources */,
 				F4AE158C25F7FF7F00688A89 /* PurchasedStockCell.swift in Sources */,
 				F4B09D5725A23ABB00E4D155 /* AppDelegate.swift in Sources */,
@@ -411,11 +445,13 @@
 				F4B09D6125A23ABC00E4D155 /* StockPort.xcdatamodeld in Sources */,
 				F4A5E0A926359B2E005FACAC /* ExpandableHeaderView.swift in Sources */,
 				F4B09D9125AA2D0D00E4D155 /* InternetConnectionManager.swift in Sources */,
+				F4A9357E2652E201009580D6 /* SignInPresenter.swift in Sources */,
 				F41EFE84262B1EE00066EFBC /* MoneyBuilder.swift in Sources */,
 				F4B09D7025A4DEF200E4D155 /* Extensions+String.swift in Sources */,
 				F49B412125F94683003D8A03 /* Extensions+TextField.swift in Sources */,
 				F4AE157E25F6B04500688A89 /* StocksDetailsViewController.swift in Sources */,
 				F4AE158925F7FDC800688A89 /* PortfolioViewController.swift in Sources */,
+				F4A935802662D04D009580D6 /* Extensions+UIViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

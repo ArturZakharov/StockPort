@@ -19,6 +19,7 @@ class StocksViewController: UIViewController {
     //MARK:- Functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
         presenter.setViewDelegate(stocksViewDelegate: self)
         tableView.showActivityIndicator()
         //getStocks()

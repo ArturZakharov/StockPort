@@ -22,6 +22,7 @@ class PortfolioViewController: UIViewController {
     //MARK:- Functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
         userStocksTableView.showActivityIndicator()
         currencyTableView.showActivityIndicator()
         presenter.setViewDelegate(portfolioViewDelegate: self)

@@ -32,7 +32,7 @@ class PurchasedStockCell: UITableViewCell {
     public func configureCell(with presenter: PortfolioPresenter, index: Int){
         let purchasedStock = presenter.purchasedStocks[index]
         stockCountityLabel.text = "\(Int(purchasedStock.countity))"
-        stockFullNamelabel.text = purchasedStock.stockASymbol
+        stockFullNamelabel.text = purchasedStock.stockSymbol
 
         let stockData = presenter.stocks[index]
         if let price = stockData.price.regularMarketOpen.raw {

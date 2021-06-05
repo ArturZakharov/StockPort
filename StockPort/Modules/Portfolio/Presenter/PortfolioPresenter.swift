@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-protocol PortfolioViewDelegate: class {
+protocol PortfolioViewDelegate: AnyObject {
     func showCurrentWalletBalance(balance: String)
     func showCurrency()
     func showPurchasedStoks()
@@ -90,7 +90,7 @@ class PortfolioPresenter{
         if purchasedStocks.count != 0 {
             StockService.shared.cancelPreviousRequest()
             for item in purchasedStocks{
-                StockService.shared.getStock(stockSymbol: item.stockASymbol) { stockData in
+                StockService.shared.getStock(stockSymbol: item.stockSymbol) { stockData in
                     self.stocks.append(stockData)
                 }
             }
