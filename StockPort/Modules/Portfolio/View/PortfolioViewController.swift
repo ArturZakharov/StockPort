@@ -15,6 +15,7 @@ class PortfolioViewController: UIViewController {
     @IBOutlet weak var userStocksTableView: UITableView!
     @IBOutlet weak var buyButton: UIButton!
     @IBOutlet weak var sellButton: UIButton!
+    @IBOutlet weak var arrowImage: UIImageView!
     
     //MARK:- Properties
     private let presenter = PortfolioPresenter(context: (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)
@@ -27,6 +28,7 @@ class PortfolioViewController: UIViewController {
         currencyTableView.showActivityIndicator()
         presenter.setViewDelegate(portfolioViewDelegate: self)
         configureButtons()
+       // configureArrow()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,12 +53,20 @@ class PortfolioViewController: UIViewController {
         sellButton.backgroundColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
     }
     
+//    private func configureArrow(){
+//        presenter.getArrowStatus()
+//    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let viewController = segue.destination as? StocksDetailsViewController {
             viewController.buyButtonShow = false
             guard let indexPath = userStocksTableView.indexPathForSelectedRow else { return }
             viewController.stock = presenter.stocks[indexPath.row]
         }
+    }
+    
+    deinit {
+        presenter.saveUserStocksSum()
     }
 }
 
@@ -69,7 +79,7 @@ extension PortfolioViewController: UITableViewDataSource{
         case currencyTableView:
             return presenter.filterdCurrency.count
         case userStocksTableView:
-            return presenter.stocks.count
+            return presenter.userStocks.count
         default:
             print("Something wrong with numberOfRows")
             return 0
@@ -102,7 +112,7 @@ extension PortfolioViewController: UITableViewDelegate{
             sellButton.isEnabled = true
             sellButton.backgroundColor = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
         case currencyTableView:
-            presenter.currencyOfTheWalletChanged(to: presenter.currencies[indexPath.row])
+            presenter.currencyOfTheWalletChanged(to: presenter.filterdCurrency[indexPath.row])
             presenter.refreshData()
             currencyTableView.deselectRow(at: indexPath, animated: true)
         default:
@@ -121,6 +131,24 @@ extension PortfolioViewController: UISearchBarDelegate {
 
 
 extension PortfolioViewController: PortfolioViewDelegate{
+    func showStatusArrow(arrowStatus: ArrowStatus) {
+        DispatchQueue.main.async {
+            switch arrowStatus {
+            case .green:
+                print("green")
+                self.arrowImage.image = UIImage(named: "arrow_up_green")
+            case .red:
+                print("red")
+                self.arrowImage.image = UIImage(named: "arrow_down_red")
+            case .normal:
+                print("normal")
+                self.arrowImage.image = UIImage(named: "arrow_up_gray")
+            default:
+                break
+            }
+        }
+    }
+    
 
     func showCurrentWalletBalance(balance: String) {
         balanceLabel.text = balance

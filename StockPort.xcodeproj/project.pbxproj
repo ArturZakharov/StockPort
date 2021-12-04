@@ -18,14 +18,17 @@
 		F49B412125F94683003D8A03 /* Extensions+TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49B412025F94683003D8A03 /* Extensions+TextField.swift */; };
 		F49B414825FABC92003D8A03 /* Extensions+NSLayoutConstrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49B414725FABC92003D8A03 /* Extensions+NSLayoutConstrain.swift */; };
 		F49B414B25FBDDA2003D8A03 /* Extensions+Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49B414A25FBDDA2003D8A03 /* Extensions+Double.swift */; };
+		F4A0A59926AC70F300DFC63E /* UsersStocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A0A59826AC70F300DFC63E /* UsersStocks.swift */; };
 		F4A5E0A926359B2E005FACAC /* ExpandableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A5E0A826359B2E005FACAC /* ExpandableHeaderView.swift */; };
 		F4A9357A2652E1A4009580D6 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A935792652E1A4009580D6 /* SignInViewController.swift */; };
 		F4A9357E2652E201009580D6 /* SignInPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A9357D2652E201009580D6 /* SignInPresenter.swift */; };
 		F4A935802662D04D009580D6 /* Extensions+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A9357F2662D04D009580D6 /* Extensions+UIViewController.swift */; };
+		F4A9358E266BC27F009580D6 /* PurchasedStock+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A9358A266BC27F009580D6 /* PurchasedStock+CoreDataClass.swift */; };
+		F4A9358F266BC27F009580D6 /* PurchasedStock+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A9358B266BC27F009580D6 /* PurchasedStock+CoreDataProperties.swift */; };
+		F4A93590266BC27F009580D6 /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A9358C266BC27F009580D6 /* User+CoreDataClass.swift */; };
+		F4A93591266BC27F009580D6 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A9358D266BC27F009580D6 /* User+CoreDataProperties.swift */; };
 		F4AE153225E16E0C00688A89 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4B09D5C25A23ABB00E4D155 /* Main.storyboard */; };
 		F4AE157E25F6B04500688A89 /* StocksDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45A9A2425E0322500F196B6 /* StocksDetailsViewController.swift */; };
-		F4AE158425F7FD9800688A89 /* PurchasedStock+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AE158225F7FD9800688A89 /* PurchasedStock+CoreDataClass.swift */; };
-		F4AE158525F7FD9800688A89 /* PurchasedStock+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AE158325F7FD9800688A89 /* PurchasedStock+CoreDataProperties.swift */; };
 		F4AE158925F7FDC800688A89 /* PortfolioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B09D7F25A9FA5700E4D155 /* PortfolioViewController.swift */; };
 		F4AE158C25F7FF7F00688A89 /* PurchasedStockCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AE158B25F7FF7F00688A89 /* PurchasedStockCell.swift */; };
 		F4B09D5725A23ABB00E4D155 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B09D5625A23ABB00E4D155 /* AppDelegate.swift */; };
@@ -59,12 +62,15 @@
 		F49B412025F94683003D8A03 /* Extensions+TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+TextField.swift"; sourceTree = "<group>"; };
 		F49B414725FABC92003D8A03 /* Extensions+NSLayoutConstrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+NSLayoutConstrain.swift"; sourceTree = "<group>"; };
 		F49B414A25FBDDA2003D8A03 /* Extensions+Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+Double.swift"; sourceTree = "<group>"; };
+		F4A0A59826AC70F300DFC63E /* UsersStocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersStocks.swift; sourceTree = "<group>"; };
 		F4A5E0A826359B2E005FACAC /* ExpandableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableHeaderView.swift; sourceTree = "<group>"; };
 		F4A935792652E1A4009580D6 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		F4A9357D2652E201009580D6 /* SignInPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInPresenter.swift; sourceTree = "<group>"; };
 		F4A9357F2662D04D009580D6 /* Extensions+UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+UIViewController.swift"; sourceTree = "<group>"; };
-		F4AE158225F7FD9800688A89 /* PurchasedStock+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PurchasedStock+CoreDataClass.swift"; sourceTree = "<group>"; };
-		F4AE158325F7FD9800688A89 /* PurchasedStock+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PurchasedStock+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F4A9358A266BC27F009580D6 /* PurchasedStock+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PurchasedStock+CoreDataClass.swift"; sourceTree = "<group>"; };
+		F4A9358B266BC27F009580D6 /* PurchasedStock+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PurchasedStock+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F4A9358C266BC27F009580D6 /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
+		F4A9358D266BC27F009580D6 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F4AE158B25F7FF7F00688A89 /* PurchasedStockCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasedStockCell.swift; sourceTree = "<group>"; };
 		F4B09D5325A23ABB00E4D155 /* StockPort.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StockPort.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4B09D5625A23ABB00E4D155 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -168,6 +174,17 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
+		F4A93589266B7977009580D6 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				F4A9358A266BC27F009580D6 /* PurchasedStock+CoreDataClass.swift */,
+				F4A9358B266BC27F009580D6 /* PurchasedStock+CoreDataProperties.swift */,
+				F4A9358C266BC27F009580D6 /* User+CoreDataClass.swift */,
+				F4A9358D266BC27F009580D6 /* User+CoreDataProperties.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		F4B09D4A25A23ABB00E4D155 = {
 			isa = PBXGroup;
 			children = (
@@ -215,10 +232,10 @@
 		F4B09D7725A9E77400E4D155 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				F4AE158225F7FD9800688A89 /* PurchasedStock+CoreDataClass.swift */,
-				F4AE158325F7FD9800688A89 /* PurchasedStock+CoreDataProperties.swift */,
+				F4A93589266B7977009580D6 /* CoreData */,
 				F4B09D7325A4F1C300E4D155 /* Currency.swift */,
 				F4D7319A25D2FA3F00A0F286 /* Stock.swift */,
+				F4A0A59826AC70F300DFC63E /* UsersStocks.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -427,10 +444,9 @@
 				F4155338263DCCFF00B4ECFF /* StocksViewController.swift in Sources */,
 				F4856670261625C700B27519 /* StocksPresenter.swift in Sources */,
 				F4D7319B25D2FA3F00A0F286 /* Stock.swift in Sources */,
-				F4AE158425F7FD9800688A89 /* PurchasedStock+CoreDataClass.swift in Sources */,
 				F4B09D9F25AA45DD00E4D155 /* Currency.swift in Sources */,
+				F4A0A59926AC70F300DFC63E /* UsersStocks.swift in Sources */,
 				F41EFE8B263476EB0066EFBC /* Section.swift in Sources */,
-				F4AE158525F7FD9800688A89 /* PurchasedStock+CoreDataProperties.swift in Sources */,
 				F4A9357A2652E1A4009580D6 /* SignInViewController.swift in Sources */,
 				F4B09D8D25AA2CDE00E4D155 /* ApiClient.swift in Sources */,
 				F4AE158C25F7FF7F00688A89 /* PurchasedStockCell.swift in Sources */,
@@ -441,14 +457,18 @@
 				F49B414B25FBDDA2003D8A03 /* Extensions+Double.swift in Sources */,
 				F4F3CA152606659600CD6A91 /* PortfolioPresenter.swift in Sources */,
 				F4B09D5925A23ABB00E4D155 /* SceneDelegate.swift in Sources */,
+				F4A9358E266BC27F009580D6 /* PurchasedStock+CoreDataClass.swift in Sources */,
 				F49B414825FABC92003D8A03 /* Extensions+NSLayoutConstrain.swift in Sources */,
 				F4B09D6125A23ABC00E4D155 /* StockPort.xcdatamodeld in Sources */,
 				F4A5E0A926359B2E005FACAC /* ExpandableHeaderView.swift in Sources */,
+				F4A93590266BC27F009580D6 /* User+CoreDataClass.swift in Sources */,
 				F4B09D9125AA2D0D00E4D155 /* InternetConnectionManager.swift in Sources */,
 				F4A9357E2652E201009580D6 /* SignInPresenter.swift in Sources */,
 				F41EFE84262B1EE00066EFBC /* MoneyBuilder.swift in Sources */,
+				F4A9358F266BC27F009580D6 /* PurchasedStock+CoreDataProperties.swift in Sources */,
 				F4B09D7025A4DEF200E4D155 /* Extensions+String.swift in Sources */,
 				F49B412125F94683003D8A03 /* Extensions+TextField.swift in Sources */,
+				F4A93591266BC27F009580D6 /* User+CoreDataProperties.swift in Sources */,
 				F4AE157E25F6B04500688A89 /* StocksDetailsViewController.swift in Sources */,
 				F4AE158925F7FDC800688A89 /* PortfolioViewController.swift in Sources */,
 				F4A935802662D04D009580D6 /* Extensions+UIViewController.swift in Sources */,

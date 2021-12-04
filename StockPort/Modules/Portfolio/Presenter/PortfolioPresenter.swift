@@ -8,10 +8,16 @@
 import Foundation
 import CoreData
 
+enum ArrowStatus {
+    case green
+    case red
+    case normal
+}
 protocol PortfolioViewDelegate: AnyObject {
     func showCurrentWalletBalance(balance: String)
     func showCurrency()
     func showPurchasedStoks()
+    func showStatusArrow(arrowStatus: ArrowStatus)
 }
 
 class PortfolioPresenter{
@@ -27,10 +33,22 @@ class PortfolioPresenter{
     }
     let userDefaults = UserDefaults.standard
     private var context: NSManagedObjectContext
+    //check
     var purchasedStocks = [PurchasedStock]()
-    var stocks = [Stock](){
-        didSet{ setUserPurchasedStoks() }
+    var user = [User]()
+    var userID: String?
+    var stocks = [Stock]()
+    var userStocks = [UsersStocks](){
+        didSet{
+            setUserPurchasedStoks()
+            calculateAllMoney()
+            if !arrowStatusWasTriggered{
+                getArrowStatus()
+            }
+        }
     }
+    var arrowStatusWasTriggered = false
+           
     private let moneyBuilder = MoneyBuilder()
     
     //MARK:- Functions
@@ -38,6 +56,7 @@ class PortfolioPresenter{
         self.context = context
         // getCurrencyData()
         //getUserPurchasedStocks()
+        userID = userDefaults.string(forKey: "currentUserID")
     }
     
     func setViewDelegate(portfolioViewDelegate: PortfolioViewDelegate){
@@ -46,17 +65,61 @@ class PortfolioPresenter{
     }
     
     func getWalletBalance(){
-        if userDefaults.object(forKey: "wallet") == nil {
-            userDefaults.set(10000.00, forKey: "wallet")
+        guard let userId = userID else { return }
+        let walletName = "wallet \(userId)"
+        if userDefaults.object(forKey: walletName) == nil {
+            userDefaults.set(10000.00, forKey: walletName)
         }
-        let money = userDefaults.double(forKey: "wallet")
+        let money = userDefaults.double(forKey: walletName)
         viewDelegate?.showCurrentWalletBalance(balance: moneyBuilder.getMoneyInCorrectCurrency(moneyAmount: money))
+    }
+    
+    func getArrowStatus(){
+        guard let userId = userID else { return }
+        let key = "userStoksPriceSum \(userId)"
+        if userDefaults.object(forKey: key) == nil {
+            viewDelegate?.showStatusArrow(arrowStatus: .normal)
+            arrowStatusWasTriggered = true
+        } else {
+            if userStocks.count == purchasedStocks.count && purchasedStocks.count != 0 {
+                
+                let lastStocksPrice = userDefaults.double(forKey: key)
+                let currentStocksPrice = getProfit()
+                let difference = lastStocksPrice - currentStocksPrice
+                
+                switch difference {
+                case ..<0:
+                    viewDelegate?.showStatusArrow(arrowStatus: .green)
+                    arrowStatusWasTriggered = true
+                case 0...:
+                    viewDelegate?.showStatusArrow(arrowStatus: .red)
+                    arrowStatusWasTriggered = true
+                default:
+                    break
+                }
+            }
+        }
+    }
+    
+    func saveUserStocksSum(){
+        guard let userId = userID else { return }
+        let key = "userStoksPriceSum \(userId)"
+        let sum = getProfit()
+        userDefaults.set(sum, forKey: key)
     }
     
     func getCurrencyData(){
         currencyService.getCurrencyValue { value in
             self.getCurrency(currencyValue: value)
         }
+    }
+    
+    func getProfit() -> Double {
+        var sum = 0.0
+        for stock in userStocks{
+            sum += stock.countity * stock.price
+        }
+        return sum
     }
     
     //func that get symbols for currency
@@ -81,23 +144,34 @@ class PortfolioPresenter{
     }
     
     private func getUserPurchasedStocks(){
+        guard let userID = userID else { return }
         do {
-            purchasedStocks = try context.fetch(PurchasedStock.fetchRequest())
+            let request = User.fetchRequest() as NSFetchRequest<User>
+            let predicate = NSPredicate(format: "userId CONTAINS '\(userID)'")
+            request.predicate = predicate
+            user = try context.fetch(request)
         } catch  {
             //TODO: problem fetching data
-            print("PROOOOOOOOOBLEM")
+            print("Error fetching users from CoreData")
         }
-        if purchasedStocks.count != 0 {
+        
+        if let stocks = user[0].stocks {
             StockService.shared.cancelPreviousRequest()
-            for item in purchasedStocks{
+            purchasedStocks = stocks.allObjects as! [PurchasedStock]
+            
+            for item in purchasedStocks {
                 StockService.shared.getStock(stockSymbol: item.stockSymbol) { stockData in
                     self.stocks.append(stockData)
+                    if let price = stockData.price.regularMarketOpen.raw {
+                        self.userStocks.append(UsersStocks(symbol: item.stockSymbol, countity: item.countity, price: price))
+                    }
                 }
             }
         }
     }
     
     func refreshData(){
+        userStocks = [UsersStocks]()
         stocks = [Stock]()
         purchasedStocks = [PurchasedStock]()
         getUserPurchasedStocks()
@@ -134,5 +208,35 @@ class PortfolioPresenter{
         }
 
         viewDelegate?.showCurrency()
+    }
+    
+//    func calculateAllMoney(){
+//        if purchasedStocks.count != 0 && purchasedStocks.count == stocks.count {
+//            var sum = 0.0
+//            for (index, _) in stocks.enumerated() {
+//                if let price = stocks[index].price.regularMarketOpen.raw {
+//                    let result = price * Double(purchasedStocks[index].countity)
+//                    sum += result
+//                }
+//            }
+//            guard let userId = userID else { return }
+//            let walletSum = userDefaults.double(forKey: "wallet \(userId)")
+//            sum += walletSum
+//            print(sum)
+//        }
+//    }
+    
+    func calculateAllMoney(){
+        if userStocks.count != 0 && purchasedStocks.count == stocks.count {
+            var sum = 0.0
+            for stock in userStocks {
+                let result = stock.price * stock.countity
+                    sum += result
+            }
+            guard let userId = userID else { return }
+            let walletSum = userDefaults.double(forKey: "wallet \(userId)")
+            sum += walletSum
+            print(sum)
+        }
     }
 }

@@ -16,8 +16,9 @@ extension PurchasedStock {
         return NSFetchRequest<PurchasedStock>(entityName: "PurchasedStock")
     }
 
-    @NSManaged public var stockASymbol: String
     @NSManaged public var countity: Double
+    @NSManaged public var stockSymbol: String
+    @NSManaged public var owner: User?
 
 }
 

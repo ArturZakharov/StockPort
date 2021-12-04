@@ -15,12 +15,12 @@ class SignInViewController: UIViewController {
     @IBOutlet weak var passwordEyeButton: UIButton!
     
     
-    let userDefaults = UserDefaults.standard
-   // var currentUser =
+    private let presenter = SignInPresenter(context: (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)
     
     //MARK:- Functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter.setViewDelegate(signinViewDelegate: self)
         self.hideKeyboardWhenTappedAround()
         self.passwordTextField.delegate = self
     }
@@ -29,21 +29,15 @@ class SignInViewController: UIViewController {
         let userName = userNameTextField.text
         let userPassword = passwordTextField.text
         
-        if userName == "" || userPassword == ""{
-            self.showAlert(title: "Attention", message: "All the fields mast be filled")
-        } else if userName == userDefaults.string(forKey: "userName") && userPassword == userDefaults.string(forKey: "Password") {
-            performSegue(withIdentifier: "segueToMyPortfolio", sender: self)
+        //guard let userName = userName else { return }
+        if let userName = userName, let userPassword = userPassword {
+            presenter.checkIfUserExict(name: userName, password: userPassword)
             userNameTextField.text = ""
             passwordTextField.text = ""
-        } else {
-            self.showAlert(title: "User not exist", message: "Check if you filled all the fields correctly")
         }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let viewController = segue.destination as? PortfolioViewController {
-         //   viewController.currentUser =
-        }
+        
+        
+
     }
     
     @IBAction func registerTapped(_ sender: UIButton) {
@@ -66,27 +60,15 @@ class SignInViewController: UIViewController {
             
             let userName = alertController.textFields?[0].text ?? ""
             let userPassword = alertController.textFields?[1].text ?? ""
-            let userRepeatedPassword = alertController.textFields?[2].text ?? ""
+            let userCheckPassword = alertController.textFields?[2].text ?? ""
             
-            if userPassword == "" || userName == "" {
-                self.showAlert(title: "Attention", message: "Some of the fields was empty, please fill all the fields")
-            } else if userPassword != userRepeatedPassword {
-                //show alert password not match
-                self.showAlert(title: "Attention", message: "Password not match")
-            }
-            
-            self.userDefaults.set(userName, forKey: "userName")
-            self.userDefaults.set(userPassword, forKey: "Password")
+            self.presenter.registerNewUser(name: userName, password: userPassword, checkPassword: userCheckPassword)
         }))
         
         self.present(alertController, animated: true, completion: nil)
     }
     
-    func showAlert(title: String, message: String){
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        self.present(alertController, animated: true, completion: nil)
-    }
+    
     
     @IBAction func passwordEyePressedDown(_ sender: UIButton) {
         passwordTextField.isSecureTextEntry = false
@@ -95,8 +77,6 @@ class SignInViewController: UIViewController {
     @IBAction func passwordEyeRelesed(_ sender: UIButton) {
         passwordTextField.isSecureTextEntry = true
     }
-    
-    
 }
 
 
@@ -106,6 +86,18 @@ extension SignInViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
         signInTapped(self)
         return true
+    }
+}
+
+extension SignInViewController: SignInViewDelegate {
+    func userExistPerformSegue() {
+        performSegue(withIdentifier: "segueToMyPortfolio", sender: self)
+    }
+    
+    func showAlert(title: String, message: String){
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alertController, animated: true, completion: nil)
     }
 }
 

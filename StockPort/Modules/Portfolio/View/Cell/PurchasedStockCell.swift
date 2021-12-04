@@ -29,15 +29,25 @@ class PurchasedStockCell: UITableViewCell {
 //        }
 //    }
     
+//    public func configureCell(with presenter: PortfolioPresenter, index: Int){
+//        let purchasedStock = presenter.purchasedStocks[index]
+//        stockCountityLabel.text = "\(Int(purchasedStock.countity))"
+//        stockFullNamelabel.text = purchasedStock.stockSymbol
+//
+//        let stockData = presenter.stocks[index]
+//        if let price = stockData.price.regularMarketOpen.raw {
+//            priceOfPurchasedShares.text = presenter.getMoneyInCorrectForm(money: price * purchasedStock.countity)
+//            stockPriceLabel.text = presenter.getMoneyInCorrectForm(money: price)
+//        }
+//    }
+    
     public func configureCell(with presenter: PortfolioPresenter, index: Int){
-        let purchasedStock = presenter.purchasedStocks[index]
+        let purchasedStock = presenter.userStocks[index]
         stockCountityLabel.text = "\(Int(purchasedStock.countity))"
-        stockFullNamelabel.text = purchasedStock.stockSymbol
-
-        let stockData = presenter.stocks[index]
-        if let price = stockData.price.regularMarketOpen.raw {
-            priceOfPurchasedShares.text = presenter.getMoneyInCorrectForm(money: price * purchasedStock.countity)
-            stockPriceLabel.text = presenter.getMoneyInCorrectForm(money: price)
-        }
+        stockFullNamelabel.text = purchasedStock.symbol
+        
+        priceOfPurchasedShares.text = presenter.getMoneyInCorrectForm(money: purchasedStock.price * purchasedStock.countity)
+        stockPriceLabel.text = presenter.getMoneyInCorrectForm(money: purchasedStock.price)
+        
     }
 }

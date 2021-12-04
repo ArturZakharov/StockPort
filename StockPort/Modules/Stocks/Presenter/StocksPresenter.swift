@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol StocksViewDelegate: class{
+protocol StocksViewDelegate: AnyObject{
     func showStocks()
 }
 
@@ -19,8 +19,8 @@ class StocksPresenter {
         didSet{createSectionsArray(from: stocks!)}}
     let userDefaults = UserDefaults.standard
     private let moneyBuilder = MoneyBuilder()
-    var sections: [Section]?
-    
+    var sections: [Section]? { didSet{ filtredSections = sections } }
+    var filtredSections: [Section]?
     //MARK:- Functions
     func setViewDelegate(stocksViewDelegate: StocksViewDelegate){
         self.viewDelegate = stocksViewDelegate
@@ -82,5 +82,16 @@ class StocksPresenter {
         
         sections = sections?.sorted{ $0.name < $1.name }
         self.viewDelegate?.showStocks()
+    }
+    
+    func filterSections(with searchText: String){
+        if !searchText.isEmpty {
+            filtredSections = sections?.filter({
+                $0.name.lowercased().contains(searchText.lowercased())
+            })
+        } else {
+            filtredSections = sections
+        }
+        viewDelegate?.showStocks()
     }
 }

@@ -86,6 +86,12 @@ class StocksDetailsViewController: UIViewController {
         guard let countity = Double(countityText) else { return }
         presenter.sellStock(countity: countity)
     }
+    
+    func showAlert(title: String, message: String){
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alertController, animated: true, completion: nil)
+    }
 }
 
 //MARK:- UITextFieldDelegate
@@ -117,17 +123,20 @@ extension StocksDetailsViewController: StocksDetailsViewDelegate {
     
     func purchasingSuccses() {
         configPage()
+        showAlert(title: "Congratulation", message: "The purchase was successful")
     }
     
-    func purchasingFaild(error: Error) {
-        //to do alert to informat user
+    func purchasingFaild(problem: String) {
+        showAlert(title: "Sorry", message: problem)
     }
     
     func sellStockSuccses(){
         configPage()
+        showAlert(title: "Congratulation", message: "The sell was successful")
     }
     
-    func sellStockFaild(error: Error){
-        //to do alert to informat user
+    func sellStockFaild(problem: String){
+        showAlert(title: "Sorry", message: problem)
     }
+    
 }
